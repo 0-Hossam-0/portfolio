@@ -1,0 +1,26 @@
+<div
+  class="gradient-bg text-text-primary dark:text-dark-text-primary overflow-x-hidden transition-colors duration-300"
+>
+  <app-header
+    [headerData]="{
+      personalData: allData.personal,
+      contactData: allData.contact
+    }"
+  ></app-header>
+
+  <main class="main-content">
+    <app-home [personalData]="allData.personal"></app-home>
+
+    <app-about
+      [aboutData]="{
+        personalData: allData.personal,
+        contactData: allData.contact
+      }"
+    ></app-about>
+    <app-portfolio [portfolioData]="allData.projects"></app-portfolio>
+    <app-experience [experienceData]="allData.experiences"></app-experience>
+    <app-blog [updatesData]="allData.updates"></app-blog>
+    <app-contact></app-contact>
+    <app-footer [footerData]="allData"></app-footer>
+  </main>
+</div>
