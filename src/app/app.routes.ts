@@ -5,7 +5,7 @@ import { ProjectsPage } from './pages/projects/projects';
 import { ProjectPage } from './pages/project/project';
 import { Updates } from './pages/updates/updates';
 import { UpdatePage } from './pages/update/update';
-import { NotFound } from './page/notfound/notfound';
+import { NotFound } from './pages/home/components/notfound/notfound';
 
 export const routes: Routes = [
   {
