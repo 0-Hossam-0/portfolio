@@ -50,7 +50,9 @@ export class HomePage implements OnInit, OnDestroy {
     window.addEventListener('scroll', this.handleScroll.bind(this));
     this.route.fragment.subscribe((fragment) => {
       if (fragment) {
-        this.scrollService.smoothScrollToSection(`#${fragment}`);
+        setTimeout(() => {
+          this.scrollService.smoothScrollToSection(`#${fragment}`);
+        }, 100);
       }
     });
   }

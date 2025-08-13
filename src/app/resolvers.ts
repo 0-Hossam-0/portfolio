@@ -18,17 +18,19 @@ export const projectResolver: ResolveFn<any> = (route) => {
     return router.createUrlTree(['/not-found']);
   }
 
-  return projectService.getProjectByTitle(title).pipe(
-    map(project => {
-      if (!project) {
-        // Navigate if project is null
+  return forkJoin({
+    projectData: projectService.getProjectByTitle(title),
+    headerData: projectService.getAllData(),
+  }).pipe(
+    map(({ projectData, headerData }) => {
+      if (!projectData || !headerData) {
         return router.createUrlTree(['/not-found']);
       }
-      return project;
+      return { projectData, headerData };
     }),
     catchError((error) => {
       console.error('Project resolver error:', error);
-      return of(null);
+      return of(router.createUrlTree(['/not-found']));
     })
   );
 };

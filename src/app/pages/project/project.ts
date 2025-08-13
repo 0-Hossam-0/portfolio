@@ -38,7 +38,11 @@ export class ProjectPage implements OnInit, OnDestroy {
       next: (data: any) => {
         if (data.projectData instanceof UrlTree) {
           this.router.navigateByUrl(data.projectData);
-        } else if (data.projectData) {
+        } else if (
+          data.projectData &&
+          data.projectData.projectData &&
+          data.projectData.headerData
+        ) {
           this.projectData = data.projectData.projectData;
           this.headerData = {
             personalData: data.projectData.headerData.personal,

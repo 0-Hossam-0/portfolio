@@ -136,10 +136,14 @@ export class Header implements OnInit {
       this.closeMobileMenuOnOutsideClick.bind(this)
     );
 
-    this.activeSection = section;
-    this.updateActiveNavItems();
-
-    this.scrollService.smoothScrollToSection(`#${section}`);
+    const currentUrl = this.router.url;
+    if (currentUrl === '/' || currentUrl.startsWith('/#')) {
+      this.activeSection = section;
+      this.updateActiveNavItems();
+      this.scrollService.smoothScrollToSection(`#${section}`);
+    } else {
+      this.router.navigate(['/'], { fragment: section });
+    }
   }
 
   private updateActiveNavItems(): void {
