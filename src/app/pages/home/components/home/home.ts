@@ -40,7 +40,7 @@ export class Home implements OnInit, AfterViewInit {
 
   onDownloadClick() {
     this.http
-      .get('http://localhost:3000/api/download', { responseType: 'blob' })
+      .get('http://backend-portfolio-steel.vercel.app/api/download', { responseType: 'blob' })
       .subscribe((blob) => {
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
