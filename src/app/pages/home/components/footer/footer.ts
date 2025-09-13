@@ -17,7 +17,6 @@ export class Footer {
   @Input({ required: true })
   set footerData(value: IData) {
     this._footerData = value;
-    console.log('updates', this._footerData);
   }
   get footerData(): IData {
     return this._footerData;
@@ -173,7 +172,6 @@ export class Footer {
 
   onNewsletterSubmit(): void {
     if (this.newsletterEmail && this.isValidEmail(this.newsletterEmail)) {
-      console.log('Newsletter subscription:', this.newsletterEmail);
 
       this.showSuccessMessage('Thank you for subscribing to our newsletter!');
 

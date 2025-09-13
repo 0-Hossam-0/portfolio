@@ -54,8 +54,7 @@ export class Contact implements OnInit, AfterViewInit {
         };
       },
       error: (error) => {
-        console.error('Error sending email:', error);
-        this.toastService.show('Failed to send email.', 'error');
+        this.toastService.show('Too many requests.', 'error');
       },
     });
   }

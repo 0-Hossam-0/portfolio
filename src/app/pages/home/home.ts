@@ -46,7 +46,6 @@ export class HomePage implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.allData = this.route.snapshot.data['allData'];
-    console.log('results', this.allData);
     window.addEventListener('scroll', this.handleScroll.bind(this));
     this.route.fragment.subscribe((fragment) => {
       if (fragment) {

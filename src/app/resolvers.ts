@@ -29,7 +29,6 @@ export const projectResolver: ResolveFn<any> = (route) => {
       return { projectData, headerData };
     }),
     catchError((error) => {
-      console.error('Project resolver error:', error);
       return of(router.createUrlTree(['/not-found']));
     })
   );

@@ -54,7 +54,6 @@ export class ProjectPage implements OnInit, OnDestroy {
         this.isLoading = false;
       },
       error: (err) => {
-        console.error('Route data error:', err);
         this.router.navigate(['/not-found']);
         this.isLoading = false;
       },

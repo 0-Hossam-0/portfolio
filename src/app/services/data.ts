@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, forkJoin, Observable, of } from 'rxjs';
+import { catchError, forkJoin, map, Observable, of } from 'rxjs';
 
 export interface IData {
   projects: {
@@ -49,17 +49,22 @@ export class DataService {
   private apiUrl = 'https://backend-portfolio-steel.vercel.app/api';
 
   getAllData(): Observable<IData | null> {
-    return forkJoin({
-      projects: this.http.get<IData['projects']>(`${this.apiUrl}/project`),
-      experiences: this.http.get<IData['experiences']>(
-        `${this.apiUrl}/experience`
-      ),
-      contact: this.http.get<IData['contact']>(`${this.apiUrl}/contact`),
-      updates: this.http.get<IData['updates']>(`${this.apiUrl}/update`),
-      personal: this.http.get<IData['personal']>(`${this.apiUrl}/personal`),
-    }).pipe(
+    // adjust this path if your backend route is '/public' instead of '/api/public'
+    const url = `${this.apiUrl}/home`;
+
+    return this.http.get<IData>(url).pipe(
+      // Ensure we return exactly IData or null (defensive mapping)
+      map((res) => {
+        if (!res) return null;
+        return {
+          projects: res.projects ?? [],
+          experiences: res.experiences ?? [],
+          contact: res.contact ?? null,
+          updates: res.updates ?? [],
+          personal: res.personal ?? null,
+        } as IData;
+      }),
       catchError((error) => {
-        console.log('Error Fetch', error);
         return of(null);
       })
     );
@@ -78,7 +83,6 @@ export class DataService {
   getProjects(): Observable<IData['projects'] | null> {
     return this.http.get<IData['projects']>(`${this.apiUrl}/project`).pipe(
       catchError((error) => {
-        console.log('Error Fetch', error);
         return of(null);
       })
     );

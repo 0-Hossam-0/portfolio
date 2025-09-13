@@ -37,8 +37,6 @@ export class UpdatePage {
 
     this.route.data.subscribe((data: any) => {
       if (data) {
-        console.log('data');
-        console.log(data);
         this.updateData = data.updateData.updateData ;
         this.headerData = {
           personalData: data.updateData.headerData.personal,
@@ -123,7 +121,6 @@ export class UpdatePage {
   }
 
   // formatDate(dateString: Date): string {
-  //   console.log(dateString);
   //   const date = new Date(dateString);
   //   return date.toLocaleDateString('en-US', {
   //     year: 'numeric',
