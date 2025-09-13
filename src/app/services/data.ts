@@ -46,7 +46,7 @@ export interface IData {
 })
 export class DataService {
   constructor(private http: HttpClient) {}
-  private apiUrl = 'http://backend-portfolio-steel.vercel.app/api';
+  private apiUrl = 'https://backend-portfolio-steel.vercel.app/api';
 
   getAllData(): Observable<IData | null> {
     return forkJoin({
