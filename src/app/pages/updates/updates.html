@@ -1,0 +1,47 @@
+<app-header
+  [headerData]="{
+    personalData: allData.personal,
+    contactData: allData.contact
+  }"
+></app-header>
+<section id="projects" class="projects-section">
+  <div class="container">
+    <div id="projectsBackground" class="projects-background-animation"></div>
+
+    <div class="section-header">
+      <h2 class="section-title">Latest Updates</h2>
+      <p class="section-subtitle">
+        Explore My Latest News
+      </p>
+    </div>
+
+    <div class="projects-grid">
+      <div
+      *ngFor="let update of allData.updates; let i = index"
+      class="project-card flex flex-col h-full"
+      [style.animation-delay]="i * 0.1 + 's'"
+      (click)="onUpdateClick(update)"
+      style="cursor: pointer"
+    >
+      <div class="project-image">
+        <img class="w-full h-48 object-cover" [src]="update.images[0]" [alt]="update.title" />
+      </div>
+    
+      <div class="project-content flex flex-col flex-1 p-4">
+        <div class="project-header">
+          <h3 class="project-title">{{ update.title }}</h3>
+          <div class="project-meta"></div>
+        </div>
+    
+        <p class="project-description">{{ update.description }}</p>
+    
+        <div class="project-details mt-auto">
+          <div class="project-duration text-white">{{ update.postDate | date:'d MMMM y' }}</div>
+        </div>
+      </div>
+    </div>
+    
+    </div>
+  </div>
+</section>
+<app-footer [footerData]="allData"></app-footer>

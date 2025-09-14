@@ -1,0 +1,54 @@
+import { Routes } from '@angular/router';
+import { HomePage } from './pages/home/home';
+import { homeResolver, projectResolver, updateResolver } from './resolvers';
+import { ProjectsPage } from './pages/projects/projects';
+import { ProjectPage } from './pages/project/project';
+import { Updates } from './pages/updates/updates';
+import { UpdatePage } from './pages/update/update';
+import { NotFound } from './pages/home/components/notfound/notfound';
+import { Loading } from './public components/loading/loading';
+
+export const routes: Routes = [
+  {
+    path: '',
+    component: HomePage,
+    resolve: { allData: homeResolver },
+  },
+  {
+    path: 'projects',
+    component: ProjectsPage,
+    pathMatch: 'full',
+    resolve: { allData: homeResolver },
+  },
+  {
+    path: 'project/:title',
+    component: ProjectPage,
+    resolve: { projectData: projectResolver },
+  },
+  {
+    path: 'update/:title',
+    component: UpdatePage,
+    resolve: { updateData: updateResolver },
+  },
+  {
+    path: 'updates',
+    component: Updates,
+    resolve: { allData: homeResolver },
+  },
+  {
+    path: 'loading',
+    component: Loading,
+  },
+  {
+    path: 'not-found',
+    component: NotFound,
+  },
+  {
+    path: '**',
+    redirectTo: 'not-found',
+  },
+  {
+    path: '**/',
+    redirectTo: 'not-found',
+  },
+];

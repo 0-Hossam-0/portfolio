@@ -1,0 +1,9 @@
+.aspect-video {
+  height: 250px; /* Or any other fixed height */
+}
+
+.aspect-video img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

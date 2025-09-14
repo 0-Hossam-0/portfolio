@@ -1,0 +1,120 @@
+<div class="gradient-bg min-h-screen">
+  <canvas id="particle-canvas" class="particle-canvas"></canvas>
+
+  <div class="floating-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <div class="animated-grid"></div>
+
+  <app-header [headerData]="headerData"></app-header>
+
+  <main class="pt-24">
+    <div
+      *ngIf="isLoading"
+      class="flex items-center justify-center min-h-screen"
+    >
+      <div class="text-center">
+        <div
+          class="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-500 mx-auto"
+        ></div>
+        <p class="text-xl text-gray-300 mt-4">Loading update...</p>
+      </div>
+    </div>
+
+    <div *ngIf="hasError" class="flex items-center justify-center min-h-screen">
+      <div class="text-center">
+        <h2 class="text-2xl font-bold text-red-500 mb-4">Update Not Found</h2>
+        <p class="text-gray-300 mb-6">
+          The Update you're looking for doesn't exist or couldn't be loaded.
+        </p>
+        <button
+          (click)="onBackToPortfolio()"
+          class="bg-gradient-to-r from-accent-blue to-light-blue text-white px-6 py-3 rounded-lg hover:shadow-xl hover:scale-105 transition-all duration-200"
+        >
+          ← Back to Portfolio
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="!isLoading && !hasError">
+      <section class="py-20 px-8 lg:px-16">
+        <div class="max-w-6xl mx-auto">
+          <div class="grid lg:grid-cols-2 gap-16 items-center">
+            <div class="reveal">
+              <h1 class="text-5xl lg:text-6xl font-bold mb-6 text-gradient">
+                {{ updateData!.title }}
+              </h1>
+              <p class="text-xl text-gray-300 mb-8 leading-relaxed">
+                {{ updateData!.description }}
+              </p>
+
+              <div class="flex flex-wrap gap-3 mb-8"></div>
+            </div>
+
+            <div class="reveal">
+              <img
+                [src]="updateData!.images[0]"
+                [alt]="updateData!.title"
+                class="rounded-2xl shadow-2xl w-full"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-20 px-8 lg:px-16 bg-black/20">
+        <div class="max-w-6xl mx-auto">
+          <div class="text-center mb-16 reveal">
+            <h2 class="text-4xl font-bold mb-6 text-gradient">
+              Update Overview
+            </h2>
+            <p class="text-gray-300 text-lg max-w-3xl mx-auto">
+              {{ updateData!.description }}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-20 px-8 lg:px-16">
+        <div class="max-w-6xl mx-auto">
+          <div class="text-center mb-16 reveal">
+            <h2 class="text-4xl font-bold mb-6 text-gradient">Screenshots</h2>
+            <p class="text-gray-300 text-lg">
+              Take a closer look at the platform's key features and user
+              interface.
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-8">
+            <div
+              *ngFor="let image of updateData.images"
+              class="reveal card-hover"
+            >
+              <img [src]="image" class="rounded-2xl shadow-xl w-full" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-20 px-8 lg:px-16">
+        <div class="max-w-4xl mx-auto text-center">
+          <div class="reveal">
+            <h2 class="text-4xl font-bold mb-6 text-gradient">Next Update</h2>
+            <p class="text-gray-300 text-lg mb-8">
+              Explore more of my work and see how I solve different challenges.
+            </p>
+            <button
+              (click)="onNextUpdate()"
+              class="bg-gradient-to-r from-accent-blue to-light-blue text-white px-8 py-4 rounded-lg hover:shadow-xl hover:scale-105 transition-all duration-200 blue-glow"
+            >
+              View More News →
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>

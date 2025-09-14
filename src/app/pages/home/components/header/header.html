@@ -1,0 +1,332 @@
+<ng-container *ngIf="headerData">
+  <div class="nav-progress">
+    <div class="nav-progress-bar" [style.width.%]="progressWidth"></div>
+  </div>
+
+  <header class="header-fixed header-bg transition-all duration-300">
+    <div class="container mx-auto px-4 sm:px-6 h-full flex items-center">
+      <div class="flex items-center justify-between w-full">
+        <div class="flex items-center space-x-2 sm:space-x-3">
+          <button
+            (click)="navigateToHome($event)"
+            class="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-accent-blue to-light-blue dark:from-dark-accent-blue dark:to-dark-light-blue rounded-full flex items-center justify-center hover:scale-110 transition-all duration-200 group"
+            title="Go to Home"
+          >
+            <svg
+              class="w-6 h-6 text-white group-hover:scale-110 transition-transform duration-200"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+              ></path>
+            </svg>
+          </button>
+          <span class="text-2xl font-bold text-gradient">Home</span>
+        </div>
+        <nav class="desktop-nav">
+          <ul class="flex space-x-2">
+            <li class="nav-item-container">
+              <a
+                href="#home"
+                class="nav-item"
+                [class.active]="activeSection === 'home'"
+                (click)="navigateToSection($event, 'home')"
+              >
+                Home
+              </a>
+            </li>
+            <li class="nav-item-container">
+              <a
+                href="#about"
+                class="nav-item"
+                [class.active]="activeSection === 'about'"
+                (click)="navigateToSection($event, 'about')"
+              >
+                About
+              </a>
+            </li>
+            <li class="nav-item-container">
+              <a
+                href="#portfolio"
+                class="nav-item"
+                [class.active]="activeSection === 'portfolio'"
+                (click)="navigateToSection($event, 'portfolio')"
+              >
+                Portfolio
+              </a>
+            </li>
+            <li class="nav-item-container">
+              <a
+                href="#experience"
+                class="nav-item"
+                [class.active]="activeSection === 'experience'"
+                (click)="navigateToSection($event, 'experience')"
+              >
+                Experience
+              </a>
+            </li>
+            <li class="nav-item-container">
+              <a
+                href="#blog"
+                class="nav-item"
+                [class.active]="activeSection === 'blog'"
+                (click)="navigateToSection($event, 'blog')"
+              >
+                Blog
+              </a>
+            </li>
+            <li class="nav-item-container">
+              <a
+                href="#contact"
+                class="nav-item"
+                [class.active]="activeSection === 'contact'"
+                (click)="navigateToSection($event, 'contact')"
+              >
+                Contact
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="desktop-profile flex items-center space-x-6">
+          <div class="theme-toggle" (click)="toggleTheme()">
+            <svg
+              class="theme-toggle-icon theme-toggle-sun"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <svg
+              class="theme-toggle-icon theme-toggle-moon"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </div>
+          <div class="flex items-center space-x-3">
+            <img
+              [src]="headerData.personalData.image"
+              [alt]="headerData.personalData.name"
+              class="w-10 h-10 rounded-full border-2 border-accent-blue/30 dark:border-dark-accent-blue/30 object-cover"
+            />
+            <div class="text-sm">
+              <p
+                class="font-semibold text-text-primary dark:text-dark-text-primary"
+              >
+                {{ headerData.personalData.name }}
+              </p>
+              <p class="text-accent-blue dark:text-dark-accent-blue text-xs">
+                {{ headerData.personalData.title }}
+              </p>
+            </div>
+          </div>
+          <div class="flex space-x-3">
+            <a
+              [href]="headerData.contactData.github"
+              target="_blank"
+              class="w-8 h-8 bg-accent-blue/20 dark:bg-dark-accent-blue/20 rounded-full flex items-center justify-center hover:bg-accent-blue dark:hover:bg-dark-accent-blue hover:scale-110 transition-all duration-200"
+            >
+              <span
+                class="text-xs text-accent-blue dark:text-dark-accent-blue hover:text-white"
+              >
+                <lucide-icon [img]="githubIcon"></lucide-icon>
+              </span>
+            </a>
+            <a
+              [href]="headerData.contactData.linkedin"
+              target="_blank"
+              class="w-8 h-8 bg-accent-blue/20 dark:bg-dark-accent-blue/20 rounded-full flex items-center justify-center hover:bg-accent-blue dark:hover:bg-dark-accent-blue hover:scale-110 transition-all duration-200"
+            >
+              <span
+                class="text-xs text-accent-blue dark:text-dark-accent-blue hover:text-white"
+              >
+                <lucide-icon [img]="linkedinIcon"></lucide-icon>
+              </span>
+            </a>
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-3 md:hidden">
+          <div class="theme-toggle" (click)="toggleTheme()">
+            <svg
+              class="theme-toggle-icon theme-toggle-sun"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <svg
+              class="theme-toggle-icon theme-toggle-moon"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </div>
+          <button
+            class="mobile-menu-btn bg-gradient-to-r from-accent-blue to-light-blue dark:from-dark-accent-blue dark:to-dark-light-blue text-white p-2 rounded-lg transition-transform duration-200"
+            (click)="toggleMobileMenu()"
+            [class.active]="mobileMenuOpen"
+          >
+            <svg
+              class="w-6 h-6 transition-transform duration-300"
+              [class.rotate-90]="mobileMenuOpen"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                [attr.d]="
+                  mobileMenuOpen
+                    ? 'M6 18L18 6M6 6l12 12'
+                    : 'M4 6h16M4 12h16M4 18h16'
+                "
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-menu" [class.active]="mobileMenuOpen">
+      <nav>
+        <ul>
+          <li>
+            <a
+              href="#home"
+              [class.active]="activeSection === 'home'"
+              (click)="navigateToSection($event, 'home')"
+            >
+              <span
+                class="inline-block w-2 h-2 bg-current rounded-full mr-3 opacity-60"
+              ></span>
+              Home
+            </a>
+          </li>
+          <li>
+            <a
+              href="#about"
+              [class.active]="activeSection === 'about'"
+              (click)="navigateToSection($event, 'about')"
+            >
+              <span
+                class="inline-block w-2 h-2 bg-current rounded-full mr-3 opacity-60"
+              ></span>
+              About
+            </a>
+          </li>
+          <li>
+            <a
+              href="#portfolio"
+              [class.active]="activeSection === 'portfolio'"
+              (click)="navigateToSection($event, 'portfolio')"
+            >
+              <span
+                class="inline-block w-2 h-2 bg-current rounded-full mr-3 opacity-60"
+              ></span>
+              Portfolio
+            </a>
+          </li>
+          <li>
+            <a
+              href="#experience"
+              [class.active]="activeSection === 'experience'"
+              (click)="navigateToSection($event, 'experience')"
+            >
+              <span
+                class="inline-block w-2 h-2 bg-current rounded-full mr-3 opacity-60"
+              ></span>
+              Experience
+            </a>
+          </li>
+          <li>
+            <a
+              href="#blog"
+              [class.active]="activeSection === 'blog'"
+              (click)="navigateToSection($event, 'blog')"
+            >
+              <span
+                class="inline-block w-2 h-2 bg-current rounded-full mr-3 opacity-60"
+              ></span>
+              Blog
+            </a>
+          </li>
+          <li>
+            <a
+              href="#contact"
+              [class.active]="activeSection === 'contact'"
+              (click)="navigateToSection($event, 'contact')"
+            >
+              <span
+                class="inline-block w-2 h-2 bg-current rounded-full mr-3 opacity-60"
+              ></span>
+              Contact
+            </a>
+          </li>
+        </ul>
+
+        <div class="px-6 py-4 border-t border-gray-200 dark:border-gray-700">
+          <div class="flex justify-center space-x-4">
+            <a
+              href="#"
+              class="w-10 h-10 bg-accent-blue/20 dark:bg-dark-accent-blue/20 rounded-full flex items-center justify-center hover:bg-accent-blue dark:hover:bg-dark-accent-blue hover:scale-110 transition-all duration-200"
+            >
+              <span
+                class="text-sm text-accent-blue dark:text-dark-accent-blue hover:text-white"
+                >f</span
+              >
+            </a>
+            <a
+              href="#"
+              class="w-10 h-10 bg-accent-blue/20 dark:bg-dark-accent-blue/20 rounded-full flex items-center justify-center hover:bg-accent-blue dark:hover:bg-dark-accent-blue hover:scale-110 transition-all duration-200"
+            >
+              <span
+                class="text-sm text-accent-blue dark:text-dark-accent-blue hover:text-white"
+                >t</span
+              >
+            </a>
+            <a
+              href="#"
+              class="w-10 h-10 bg-accent-blue/20 dark:bg-dark-accent-blue/20 rounded-full flex items-center justify-center hover:bg-accent-blue dark:hover:bg-dark-accent-blue hover:scale-110 transition-all duration-200"
+            >
+              <span
+                class="text-sm text-accent-blue dark:text-dark-accent-blue hover:text-white"
+                >in</span
+              >
+            </a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+</ng-container>

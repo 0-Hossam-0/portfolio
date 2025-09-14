@@ -1,0 +1,83 @@
+<section
+  id="contact"
+  class="section-padding px-4 sm:px-8 lg:px-16 bg-light-gray/50 section-transition relative"
+>
+  <!-- Message Background Animation -->
+  <div class="contact-bg-animation" #contactBg></div>
+
+  <div class="max-w-4xl mx-auto relative z-10">
+    <div class="text-center mb-8 sm:mb-16 animate-on-scroll">
+      <h2 class="text-3xl sm:text-5xl font-bold mb-4 sm:mb-6 text-gradient">
+        Let's Work Together
+      </h2>
+      <p
+        class="text-base sm:text-lg text-text-secondary max-w-2xl mx-auto px-4"
+      >
+        Have a project in mind? Let's discuss how we can bring your ideas to
+        life.
+      </p>
+    </div>
+    <div
+      class="contact-form-bg p-4 sm:p-8 rounded-xl sm:rounded-2xl shadow-2xl animate-scale"
+    >
+      <form
+        class="grid sm:grid-cols-2 gap-4 sm:gap-6"
+        (ngSubmit)="onSubmit()"
+        #contactForm="ngForm"
+      >
+        <div class="animate-on-scroll delay-1">
+          <label class="block text-sm font-medium mb-2 sm:mb-3 text-accent-blue"
+            >Name</label
+          >
+          <input
+            type="text"
+            name="name"
+            [(ngModel)]="formData.name"
+            class="w-full px-3 sm:px-4 py-3 sm:py-4 glass-effect rounded-lg focus:border-accent-blue focus:outline-none transition-all duration-200 text-text-primary"
+          />
+        </div>
+        <div class="animate-on-scroll delay-2">
+          <label class="block text-sm font-medium mb-3 text-accent-blue"
+            >Email</label
+          >
+          <input
+            type="email"
+            name="email"
+            [(ngModel)]="formData.email"
+            class="w-full px-4 py-4 glass-effect rounded-lg focus:border-accent-blue focus:outline-none transition-all duration-200 text-text-primary"
+          />
+        </div>
+        <div class="md:col-span-2 animate-on-scroll delay-3">
+          <label class="block text-sm font-medium mb-3 text-accent-blue"
+            >Subject</label
+          >
+          <input
+            type="text"
+            name="subject"
+            [(ngModel)]="formData.subject"
+            class="w-full px-4 py-4 glass-effect rounded-lg focus:border-accent-blue focus:outline-none transition-all duration-200 text-text-primary"
+          />
+        </div>
+        <div class="md:col-span-2 animate-on-scroll delay-4">
+          <label class="block text-sm font-medium mb-3 text-accent-blue"
+            >Message</label
+          >
+          <textarea
+            rows="6"
+            name="message"
+            [(ngModel)]="formData.message"
+            class="w-full px-4 py-4 glass-effect rounded-lg focus:border-accent-blue focus:outline-none transition-all duration-200 text-text-primary"
+          ></textarea>
+        </div>
+        <div class="md:col-span-2 text-center animate-on-scroll delay-5">
+          <button
+            type="submit"
+            class="bg-gradient-to-r from-accent-blue to-light-blue text-white px-12 py-4 rounded-lg hover:shadow-xl hover:scale-105 transition-all duration-200 blue-glow"
+          >
+            Send Message
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
