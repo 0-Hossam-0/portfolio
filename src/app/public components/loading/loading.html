@@ -23,7 +23,7 @@
     </div>
 
     <!-- Dismiss Hint -->
-    <div class="text-sm text-gray-400 mt-6 fade-in delayed-2 dismiss-hint">
+    <div *ngIf="!isFirstLoad" class="text-sm text-gray-400 mt-6 fade-in delayed-2 dismiss-hint">
       <i class="fas fa-keyboard mr-2 text-blue-400"></i>
       <span>Click to dismiss</span>
     </div>

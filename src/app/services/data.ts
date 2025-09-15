@@ -1,6 +1,6 @@
-import { HttpClient, HttpEvent, HttpEventType, HttpResponse } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { catchError, forkJoin, map, Observable, of } from "rxjs";
+import { catchError, forkJoin, Observable, of, Subject, takeUntil } from "rxjs";
 
 export interface IData {
   projects: {
@@ -46,9 +46,11 @@ export interface IData {
 })
 export class DataService {
   constructor(private http: HttpClient) {}
+  private cancel$ = new Subject<void>();
   private apiUrl = "https://backend-portfolio-steel.vercel.app/api";
   isLoading = false;
   progressBarValue = 0;
+  isFirstLoad = true;
 
   fetchWithProgress(): Observable<IData | null> {
     this.isLoading = true;
@@ -61,41 +63,66 @@ export class DataService {
         }
       }, 100);
 
-      this.http.get<IData>(`${this.apiUrl}/home`).subscribe({
-        next: (data) => {
-          clearInterval(fakeInterval);
-          this.progressBarValue = 100;
-          this.isLoading = false;
-
-          // ✅ Normalize response
-          const safeData: IData = {
-            projects: data?.projects ?? [],
-            experiences: data?.experiences ?? [],
-            contact: data?.contact ?? null,
-            updates: data?.updates ?? [],
-            personal: data?.personal ?? null,
-          };
-
-          observer.next(safeData);
-          observer.complete();
-        },
-        error: () => {
-          clearInterval(fakeInterval);
-          this.progressBarValue = 0;
-          this.isLoading = false;
-
-          // ✅ Return a valid empty IData instead of null or {}
-          observer.next({
-            projects: [],
-            experiences: [],
-            contact: { email: "", phone: "", linkedin: "", github: "" },
-            updates: [],
-            personal: { name: "", location: "", title: "", bio: "", skills: [], image: "" },
-          });
-          observer.complete();
-        },
-      });
+      this.http
+        .get<IData>(`${this.apiUrl}/home`)
+        .pipe(
+          takeUntil(this.cancel$),
+          catchError(() => {
+            clearInterval(fakeInterval);
+            this.progressBarValue = 0;
+            observer.next(this.emptyData());
+            observer.complete();
+            return of(null);
+          })
+        )
+        .subscribe({
+          next: (data) => {
+            clearInterval(fakeInterval);
+            this.progressBarValue = 100;
+            observer.next(this.normalizeData(data));
+            observer.complete();
+          },
+          complete: () => {
+            console.log("success");
+            this.isLoading = false;
+            this.isFirstLoad = false;
+            clearInterval(fakeInterval);
+          },
+        });
     });
+  }
+  private normalizeData(data: Partial<IData> | null): IData {
+    return {
+      projects: data?.projects ?? [],
+      experiences: data?.experiences ?? [],
+      contact: data?.contact ?? {
+        email: "",
+        phone: "",
+        linkedin: "",
+        github: "",
+      },
+      updates: data?.updates ?? [],
+      personal: data?.personal ?? {
+        name: "",
+        location: "",
+        title: "",
+        bio: "",
+        skills: [],
+        image: "",
+      },
+    };
+  }
+
+  private emptyData(): IData {
+    return this.normalizeData(null);
+  }
+
+  cancelRequest() {
+    if (!this.isFirstLoad) {
+      this.cancel$.next();
+      this.isLoading = false;
+      this.progressBarValue = 0;
+    }
   }
 
   getHeaderData(): Observable<{

@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, HostListener, OnDestroy, OnInit } from "@angular/core";
+import { AfterViewInit, Component, HostListener, OnDestroy, OnInit } from "@angular/core";
 import { DataService } from "../../services/data";
 
 @Component({
@@ -13,41 +13,39 @@ export class Loading implements OnInit, OnDestroy {
   constructor(private dataService: DataService) {}
   isLoading!: boolean;
   progress = 0;
-  private progressBarValue!: number;
+  isFirstLoad: boolean = true;
+  private progressInterval: any;
 
   ngOnInit() {
     this.isLoading = this.dataService.isLoading;
     this.progress = this.dataService.progressBarValue;
-    setInterval(() => {
-      console.log(this.dataService.progressBarValue);
+    this.isFirstLoad = this.dataService.isFirstLoad;
+    this.progressInterval = setInterval(() => {
+      console.log(this.isFirstLoad);
       this.isLoading = this.dataService.isLoading;
       this.progress = this.dataService.progressBarValue;
+      this.isFirstLoad = this.dataService.isFirstLoad;
     }, 0);
   }
 
-  // @HostListener("document:keydown", ["$event"])
-  // handleKeyDown(event: KeyboardEvent) {
-  //   if (event.key === "Escape") {
-  //     this.dismissLoading();
-  //   }
-  // }
+  @HostListener("document:keydown", ["$event"])
+  handleKeyDown(event: KeyboardEvent) {
+    if (this.isLoading && !this.isFirstLoad && event.key === 'Escape') this.dataService.cancelRequest();
+  }
 
-  // Dismiss loading screen
-  // dismissLoading() {
-  //   if (
-  //     this.progress >= 100 ||
-  //     confirm("Are you sure you want to skip loading?")
-  //   ) {
-  //     this.isLoading = false;
-  //     if (this.progressInterval) {
-  //       clearInterval(this.progressInterval);
-  //     }
-  //   }
-  // }
+  @HostListener("document:click", ["$event"])
+  onClick(event: MouseEvent) {
+    if (this.isLoading && !this.isFirstLoad) this.dataService.cancelRequest();
+  }
+
+  @HostListener("document:touchstart", ["$event"])
+  onTouch(event: TouchEvent) {
+    if (this.isLoading && !this.isFirstLoad) this.dataService.cancelRequest();
+  }
 
   ngOnDestroy() {
-  //   if (this.progressInterval) {
-  //     clearInterval(this.progressInterval);
-  //   }
+    if (this.progressInterval) {
+      clearInterval(this.progressInterval);
+    }
   }
 }

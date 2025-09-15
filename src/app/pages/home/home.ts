@@ -1,5 +1,4 @@
-import { Component, type OnInit, type OnDestroy, Input } from "@angular/core";
-import { ThemeService } from "../../services/theme";
+import { Component, type OnInit, type OnDestroy } from "@angular/core";
 import { ScrollService } from "../../services/scroll";
 import { Experience } from "./components/experience/experience";
 import { Contact } from "./components/contact/contact";
@@ -9,7 +8,7 @@ import { Portfolio } from "./components/portfolio/portfolio";
 import { About } from "./components/about/about";
 import { Header } from "./components/header/header";
 import { AnimationService } from "../../services/animation";
-import { DataService, IData } from "../../services/data";
+import { IData } from "../../services/data";
 import { CommonModule } from "@angular/common";
 import { Footer } from "./components/footer/footer";
 import { ActivatedRoute } from "@angular/router";
@@ -39,21 +38,12 @@ export class HomePage implements OnInit, OnDestroy {
   allData!: IData;
   constructor(
     private scrollService: ScrollService,
-    private themeService: ThemeService,
     private animationService: AnimationService,
-    private dataService: DataService,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.dataService.fetchWithProgress().subscribe({
-      next: (data) => {
-        if (data) {
-          this.allData = data;
-          this.isLoading = false;
-        }
-      },
-    });
+    this.allData = this.route.snapshot.data["allData"];
     window.addEventListener("scroll", this.handleScroll.bind(this));
     this.route.fragment.subscribe((fragment) => {
       if (fragment) {
