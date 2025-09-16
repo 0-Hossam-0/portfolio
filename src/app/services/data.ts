@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { catchError, forkJoin, Observable, of, Subject, takeUntil } from "rxjs";
+import { allData$, hasError$ } from "../events/error";
 
 export interface IData {
   projects: {
@@ -39,6 +40,7 @@ export interface IData {
     skills: string[];
     image: string;
   };
+  hasError?: boolean;
 }
 
 @Injectable({
@@ -51,6 +53,7 @@ export class DataService {
   isLoading = false;
   progressBarValue = 0;
   isFirstLoad = true;
+  hasError: boolean = false;
 
   fetchWithProgress(): Observable<IData | null> {
     this.isLoading = true;
@@ -70,6 +73,9 @@ export class DataService {
           catchError(() => {
             clearInterval(fakeInterval);
             this.progressBarValue = 0;
+            this.isLoading = false;
+            hasError$.next(true);
+            this.hasError = true;
             observer.next(this.emptyData());
             observer.complete();
             return of(null);
@@ -79,19 +85,24 @@ export class DataService {
           next: (data) => {
             clearInterval(fakeInterval);
             this.progressBarValue = 100;
-            observer.next(this.normalizeData(data));
+            const normalized = this.normalizeData(data);
+            observer.next(normalized);
+            allData$.next(normalized);
             observer.complete();
           },
           complete: () => {
-            console.log("success");
             this.isLoading = false;
+            this.hasError = false;
             this.isFirstLoad = false;
             clearInterval(fakeInterval);
           },
         });
     });
   }
-  private normalizeData(data: Partial<IData> | null): IData {
+
+  private normalizeData(
+    data: Partial<IData> | null
+  ): IData & { hasError?: boolean } {
     return {
       projects: data?.projects ?? [],
       experiences: data?.experiences ?? [],
@@ -110,6 +121,7 @@ export class DataService {
         skills: [],
         image: "",
       },
+      hasError: this.hasError,
     };
   }
 

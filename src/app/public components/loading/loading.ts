@@ -21,7 +21,6 @@ export class Loading implements OnInit, OnDestroy {
     this.progress = this.dataService.progressBarValue;
     this.isFirstLoad = this.dataService.isFirstLoad;
     this.progressInterval = setInterval(() => {
-      console.log(this.isFirstLoad);
       this.isLoading = this.dataService.isLoading;
       this.progress = this.dataService.progressBarValue;
       this.isFirstLoad = this.dataService.isFirstLoad;

@@ -1,66 +1,68 @@
-<app-header
-  [headerData]="{
-    personalData: allData.personal,
-    contactData: allData.contact
-  }"
-></app-header>
-<section id="projects" class="projects-section">
-  <div id="projectsBackground" class="projects-background-animation"></div>
+<ng-container *ngIf="allData && !allData.hasError">
+  <app-header
+    [headerData]="{
+      personalData: allData.personal,
+      contactData: allData.contact
+    }"
+  ></app-header>
+  <section id="projects" class="projects-section">
+    <div id="projectsBackground" class="projects-background-animation"></div>
 
-  <div class="container">
-    <div class="section-header">
-      <h2 class="section-title">My Projects</h2>
-      <p class="section-subtitle">
-        Explore my latest work and creative solutions
-      </p>
-    </div>
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">My Projects</h2>
+        <p class="section-subtitle">
+          Explore my latest work and creative solutions
+        </p>
+      </div>
 
-    <div class="projects-grid">
-      <div
-        *ngFor="let project of allData.projects; let i = index"
-        class="project-card"
-        [style.animation-delay]="i * 0.1 + 's'"
-        (click)="onProjectClick(project)"
-        style="cursor: pointer"
-      >
-        <div class="project-image">
-          <img [src]="project.images[0]" [alt]="project.title" />
-          <div class="project-overlay">
-            <div class="project-links">
-              <a
-                [href]="project.githubLink"
-                class="project-link"
-                target="_blank"
-                rel="noopener"
-              >
-                <a target="_blank" [href]="project.githubLink">
-                  <lucide-icon [img]="githubIcon"></lucide-icon>
+      <div class="projects-grid">
+        <div
+          *ngFor="let project of allData.projects; let i = index"
+          class="project-card"
+          [style.animation-delay]="i * 0.1 + 's'"
+          (click)="onProjectClick(project)"
+          style="cursor: pointer"
+        >
+          <div class="project-image">
+            <img [src]="project.images[0]" [alt]="project.title" />
+            <div class="project-overlay">
+              <div class="project-links">
+                <a
+                  [href]="project.githubLink"
+                  class="project-link"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <a target="_blank" [href]="project.githubLink">
+                    <lucide-icon [img]="githubIcon"></lucide-icon>
+                  </a>
+                  GitHub
                 </a>
-                GitHub
-              </a>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="project-content">
-          <div class="project-header">
-            <h3 class="project-title">{{ project.title }}</h3>
-            <div class="project-meta"></div>
-          </div>
-          <p class="project-description">{{ project.description }}</p>
+          <div class="project-content">
+            <div class="project-header">
+              <h3 class="project-title">{{ project.title }}</h3>
+              <div class="project-meta"></div>
+            </div>
+            <p class="project-description">{{ project.description }}</p>
 
-          <div class="project-details">
-            <div class="project-duration"></div>
-          </div>
+            <div class="project-details">
+              <div class="project-duration"></div>
+            </div>
 
-          <div class="project-technologies">
-            <span *ngFor="let tech of project.technologies" class="tech-tag">
-              {{ tech }}
-            </span>
+            <div class="project-technologies">
+              <span *ngFor="let tech of project.technologies" class="tech-tag">
+                {{ tech }}
+              </span>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
-<app-footer [footerData]="allData"></app-footer>
+  </section>
+  <app-footer [footerData]="allData"></app-footer>
+</ng-container>

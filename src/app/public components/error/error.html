@@ -1,0 +1,155 @@
+<div
+  class="fixed inset-0 bg-gray-900 bg-opacity-90 flex items-center justify-center z-50 loading-container"
+  *ngIf="hasError"
+>
+  <div
+    *ngIf="visible"
+    class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4"
+    aria-hidden="false"
+  >
+    <div
+      role="alertdialog"
+      aria-modal="true"
+      aria-labelledby="errTitle"
+      aria-describedby="errDesc"
+      class="w-full max-w-xl rounded-2xl shadow-2xl bg-white dark:bg-dark-surface p-6 md:p-8 animate-slide-up scale-in"
+    >
+      <div class="flex gap-4 md:gap-6 items-start">
+        <div class="relative flex-shrink-0">
+          <svg
+            class="w-20 h-20 md:w-24 md:h-24"
+            viewBox="0 0 36 36"
+            aria-hidden="true"
+          >
+            <defs>
+              <linearGradient id="g1" x1="0" x2="1">
+                <stop offset="0%" stop-color="#2563eb" />
+                <stop offset="100%" stop-color="#60a5fa" />
+              </linearGradient>
+            </defs>
+            <path
+              d="M18 2.0845
+               a 15.9155 15.9155 0 0 1 0 31.831
+               a 15.9155 15.9155 0 0 1 0 -31.831"
+              fill="none"
+              stroke="rgba(255,255,255,0.04)"
+              stroke-width="3.2"
+              stroke-linecap="round"
+            />
+            <path
+              d="M18 2.0845
+               a 15.9155 15.9155 0 0 1 0 31.831
+               a 15.9155 15.9155 0 0 1 0 -31.831"
+              fill="none"
+              [attr.stroke]="null"
+              stroke="url(#g1)"
+              stroke-width="3.6"
+              stroke-linecap="round"
+              [attr.style]="
+                'stroke-dasharray: ' +
+                progressPercent * 0.998 +
+                ' 100; transition: stroke-dasharray 200ms linear;'
+              "
+            />
+            <g transform="translate(8,8)">
+              <circle
+                cx="10"
+                cy="10"
+                r="6"
+                class="fill-accent-blue/10 dark:fill-dark-accent-blue/10"
+              />
+              <text
+                x="10"
+                y="14"
+                text-anchor="middle"
+                fill="#fff"
+                font-size="10"
+                font-weight="700"
+                font-family="monospace"
+              >
+                !
+              </text>
+            </g>
+          </svg>
+        </div>
+
+        <div class="flex-1 min-w-0">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <h3
+                id="errTitle"
+                class="text-lg md:text-xl font-semibold text-text-primary dark:text-dark-text-primary"
+              >
+                {{ title }}
+              </h3>
+              <p
+                id="errDesc"
+                class="mt-2 text-sm md:text-base text-text-secondary dark:text-dark-text-secondary"
+              >
+                {{ message }}
+              </p>
+            </div>
+            <div class="text-right">
+              <div class="text-xs text-text-muted dark:text-dark-text-muted">
+                {{ isMaxRetriesReached ? "Max retries reached" : "Auto retry" }}
+              </div>
+              <div
+                class="mt-1 text-2xl font-mono font-semibold"
+                [class]="
+                  isMaxRetriesReached
+                    ? 'text-red-500 dark:text-red-400'
+                    : 'text-accent-blue dark:text-dark-accent-blue'
+                "
+              >
+                {{ isMaxRetriesReached ? "!" : countdown + "s" }}
+              </div>
+              <div
+                class="text-xs text-text-muted dark:text-dark-text-muted mt-1"
+              >
+                Attempt {{ retryCount }}/{{ maxRetries }}
+              </div>
+            </div>
+          </div>
+
+          <div
+            *ngIf="details"
+            class="mt-4 p-3 rounded-lg bg-light-gray dark:bg-dark-surface-light text-sm text-text-muted dark:text-dark-text-secondary"
+          >
+            <div class="truncate" title="{{ details }}">{{ details }}</div>
+          </div>
+
+          <div
+            class="mt-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3"
+          >
+            <div class="flex items-center">
+              <button
+                #primaryButton
+                *ngIf="!isMaxRetriesReached"
+                (click)="retryNow()"
+                class="inline-flex items-center gap-2 rounded-lg w-36 px-4 py-2 bg-accent-blue hover:bg-light-blue text-white shadow-md focus:outline-none focus:ring-4 focus:ring-accent-blue/30"
+                title="Retry now"
+              >
+                <lucide-icon [img]="reloadIcon" class="w-4 h-4"></lucide-icon>
+                Retry Now
+              </button>
+            </div>
+
+            <div class="flex items-center gap-3">
+              <div class="text-xs text-text-muted dark:text-dark-text-muted">
+                Or wait for automatic retry
+              </div>
+              <div
+                class="ml-2 w-28 h-2 bg-lighter-gray dark:bg-dark-surface rounded-full overflow-hidden"
+              >
+                <div
+                  class="h-full bg-accent-blue dark:bg-dark-accent-blue transition-all"
+                  [style.width.%]="progressPercent"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -14,7 +14,6 @@ export const projectResolver: ResolveFn<any> = (route) => {
   const title = route.paramMap.get('title');
 
   if (!title) {
-    // Immediately navigate to not-found if no title
     return router.createUrlTree(['/not-found']);
   }
 

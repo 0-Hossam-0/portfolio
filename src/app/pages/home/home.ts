@@ -12,6 +12,8 @@ import { IData } from "../../services/data";
 import { CommonModule } from "@angular/common";
 import { Footer } from "./components/footer/footer";
 import { ActivatedRoute } from "@angular/router";
+import { allData$, hasError$ } from "../../events/error";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "home-page-root",
@@ -33,9 +35,9 @@ import { ActivatedRoute } from "@angular/router";
 })
 export class HomePage implements OnInit, OnDestroy {
   showButton = false;
-  isLoading = true;
   private scrollTicking = false;
   allData!: IData;
+  private sub!: Subscription;
   constructor(
     private scrollService: ScrollService,
     private animationService: AnimationService,
@@ -44,6 +46,13 @@ export class HomePage implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.allData = this.route.snapshot.data["allData"];
+    if (this.allData.hasError) {
+      this.sub = allData$.subscribe((data) => {
+        if (data.hasError) return;
+        this.allData = data;
+      });
+    }
+
     window.addEventListener("scroll", this.handleScroll.bind(this));
     this.route.fragment.subscribe((fragment) => {
       if (fragment) {
@@ -56,6 +65,9 @@ export class HomePage implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     window.removeEventListener("scroll", this.handleScroll.bind(this));
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
   }
 
   private handleScroll(): void {

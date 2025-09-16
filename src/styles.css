@@ -625,7 +625,7 @@ html {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 30;
   height: 80px;
 }
 
@@ -2736,7 +2736,7 @@ section {
   color: white;
   cursor: pointer;
   transition: all 0.3s ease;
-  z-index: 1000;
+  z-index: 40;
   opacity: 0;
   visibility: hidden;
   box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);

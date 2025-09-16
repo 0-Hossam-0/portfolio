@@ -6,7 +6,7 @@ import { ProjectPage } from './pages/project/project';
 import { Updates } from './pages/updates/updates';
 import { UpdatePage } from './pages/update/update';
 import { NotFound } from './pages/home/components/notfound/notfound';
-import { Loading } from './public components/loading/loading';
+import { Error } from './public components/error/error';
 
 export const routes: Routes = [
   {
@@ -36,8 +36,8 @@ export const routes: Routes = [
     resolve: { allData: homeResolver },
   },
   {
-    path: 'loading',
-    component: Loading,
+    path: 'error',
+    component: Error,
   },
   {
     path: 'not-found',

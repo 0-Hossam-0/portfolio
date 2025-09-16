@@ -1,0 +1,27 @@
+/* small complement to Tailwind classes for nicer animation timing */
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(.98);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* apply animation */
+.animate-slide-up {
+  animation: slideUp 420ms cubic-bezier(.2, .9, .3, 1) forwards;
+}
+
+/* small visual polish */
+svg path {
+  shape-rendering: geometricPrecision;
+}
+
+/* ensure dark/light strokes if needed */
+.fill-accent-blue\/10 {
+  fill: rgba(37, 99, 235, 0.08);
+}
