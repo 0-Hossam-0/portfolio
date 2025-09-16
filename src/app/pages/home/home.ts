@@ -80,9 +80,9 @@ export class HomePage implements OnInit, OnDestroy {
     }
   }
 
-  scrollToTop(): void {
-    this.scrollService.smoothScrollToSection("#home");
-  }
+  // scrollToTop(): void {
+  //   this.scrollService.smoothScrollToSection("#home");
+  // }
 
   ngAfterViewInit(): void {
     this.scrollService.initScrollListener();
