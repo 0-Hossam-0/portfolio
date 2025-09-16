@@ -1,4 +1,4 @@
-<ng-container *ngIf="headerData" class="z-50">
+<ng-container *ngIf="headerData">
   <div class="nav-progress">
     <div class="nav-progress-bar" [style.width.%]="progressWidth"></div>
   </div>
@@ -32,7 +32,7 @@
         <!-- Desktop Navigation -->
         <nav class="hidden md:block pointer-events-none">
           <ul class="flex space-x-1 sm:space-x-2 pointer-events-auto">
-            <li class="nav-item-container">
+            <li>
               <a
                 href="#home"
                 class="nav-item"
@@ -52,7 +52,7 @@
                 About
               </a>
             </li>
-            <li class="nav-item-container">
+            <li>
               <a
                 href="#portfolio"
                 class="nav-item"
@@ -62,7 +62,7 @@
                 Projects
               </a>
             </li>
-            <li class="nav-item-container">
+            <li>
               <a
                 href="#experience"
                 class="nav-item"
@@ -72,7 +72,7 @@
                 Experience
               </a>
             </li>
-            <li class="nav-item-container">
+            <li>
               <a
                 href="#blog"
                 class="nav-item"
@@ -82,7 +82,7 @@
                 Blog
               </a>
             </li>
-            <li class="nav-item-container">
+            <li>
               <a
                 href="#contact"
                 class="nav-item"

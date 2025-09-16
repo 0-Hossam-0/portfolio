@@ -10,6 +10,17 @@
   padding: 1rem;
 }
 
+@media (max-width: 639px) {
+  .home-section {
+    min-height: auto; /* Allow section to grow with content on mobile */
+    overflow-y: auto; /* Allow scrolling on mobile if content overflows */
+    align-items: flex-start; /* Align items to the start on mobile */
+    padding-top: 5rem; /* Add some padding to the top for mobile */
+    padding-bottom: 5rem; /* Add some padding to the bottom for mobile */
+    flex-direction: column; /* Stack items vertically on mobile */
+  }
+}
+
 @media (min-width: 640px) {
   .home-section {
     padding: 2rem;

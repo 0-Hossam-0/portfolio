@@ -52,10 +52,6 @@
   }
 }
 
-.nav-item-container {
-  display: inline-block;
-  z-index: -1;
-}
 
 .nav-item {
   padding: 0.5rem 1rem;
@@ -65,7 +61,6 @@
   transition: all 0.2s;
   display: inline-flex;
   align-items: center;
-  pointer-events: none;
 }
 
 .nav-item {
