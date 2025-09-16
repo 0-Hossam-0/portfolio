@@ -243,7 +243,7 @@ export class AnimationService {
       case 'services':
         this.createServicesAnimation(container);
         break;
-      case 'portfolio':
+      case 'projects':
         this.createPortfolioAnimation(container);
         break;
       case 'experience':

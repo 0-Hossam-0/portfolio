@@ -12,15 +12,9 @@ import { Error } from "./public components/error/error";
   imports: [RouterOutlet, Toast, Loading, CommonModule, Error],
   standalone: true,
 })
-export class App implements OnInit {
+export class App  {
   errorDetail: string | null = null;
   constructor(private router: Router) {}
 
-  ngOnInit() {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        window.scrollTo(0, 0);
-      }
-    });
-  }
+
 }

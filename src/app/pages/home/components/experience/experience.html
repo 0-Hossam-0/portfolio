@@ -1,63 +1,142 @@
 <section
   id="experience"
-  class="section-padding px-4 sm:px-8 lg:px-16 bg-light-gray/50 dark:bg-dark-surface/50 section-transition relative"
+  class="section-padding px-4 sm:px-8 lg:px-16 bg-gradient-to-b from-light-gray/30 to-transparent dark:from-dark-surface/30 dark:to-transparent section-transition relative overflow-hidden"
 >
   <div class="experience-bg-animation" #experienceBg></div>
 
   <div class="floating-code-particles"></div>
-
   <div class="animated-grid-overlay"></div>
 
+  <div
+    class="absolute top-20 left-10 w-64 h-64 bg-accent-blue/5 dark:bg-dark-accent-blue/5 rounded-full blur-3xl"
+  ></div>
+  <div
+    class="absolute bottom-20 right-10 w-72 h-72 bg-accent-blue/5 dark:bg-dark-accent-blue/5 rounded-full blur-3xl"
+  ></div>
+
   <div class="max-w-7xl mx-auto relative z-10">
-    <div class="text-center mb-10 sm:mb-20 animate-on-scroll">
-      <h2 class="text-3xl sm:text-5xl font-bold mb-4 sm:mb-6 text-gradient">
-        Experience
-      </h2>
-      <p
-        class="text-text-secondary dark:text-dark-text-secondary text-base sm:text-lg max-w-2xl mx-auto px-4"
+    <div class="text-center mb-12 sm:mb-20 animate-on-scroll">
+      <div
+        class="inline-flex items-center justify-center px-4 py-1.5 mb-6 rounded-full bg-accent-blue/10 dark:bg-dark-accent-blue/10"
       >
-        My professional journey and the technologies I've mastered along the
-        way.
+        <svg
+          class="w-5 h-5 mr-2 text-accent-blue dark:text-dark-accent-blue"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+          />
+        </svg>
+        >
+      </div>
+
+      <h2
+        class="text-3xl sm:text-5xl font-bold mb-4 sm:mb-6 text-gradient relative inline-block"
+      >
+        My Journey
+        <span
+          class="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-accent-blue to-light-blue dark:from-dark-accent-blue dark:to-dark-light-blue rounded-full"
+        ></span>
+      </h2>
+
+      <p
+        class="text-text-secondary dark:text-dark-text-secondary text-base sm:text-lg max-w-2xl mx-auto px-4 leading-relaxed"
+      >
+        Explore my professional journey and the technologies I've mastered along
+        the way. Each experience has shaped my expertise in creating impactful
+        solutions.
       </p>
     </div>
-
-    <h3
-      class="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-16 text-accent-blue dark:text-dark-accent-blue animate-on-scroll"
-    >
-      Professional Journey
-    </h3>
     <div class="relative">
-      <!-- Timeline Line -->
-      <div class="timeline-line hidden sm:block"></div>
+      <div class="timeline-line"></div>
 
-      <!-- Timeline Items -->
       <div class="timeline-container">
-        <!-- Experience Item 1 -->
         <div
           *ngFor="let experience of experienceData; let i = index"
           [ngClass]="{
             'timeline-item-left': i % 2 === 0,
             'timeline-item-right': i % 2 !== 0
           }"
-          class="timeline-item animate-on-scroll delay-1"
+          class="timeline-item animate-on-scroll"
+          [style.animation-delay]="i * 0.2 + 's'"
         >
           <div class="timeline-dot">
             <div class="timeline-dot-inner"></div>
           </div>
-          <div class="timeline-content">
-            <div class="timeline-date">
-              {{ experience.startDate | date : "yyyy" }} -
-              {{ getCompletionLabel(experience.completionDate) }}
+          <div class="timeline-content group">
+            <div class="timeline-date-badge">
+              <svg
+                class="w-4 h-4 text-accent-blue dark:text-dark-accent-blue"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                />
+              </svg>
+              <span
+                >{{ experience.startDate | date : "yyyy" }} -
+                {{ getCompletionLabel(experience.completionDate) }}</span
+              >
             </div>
-            <h4 class="timeline-title">{{ experience.title }}</h4>
-            <div class="timeline-company">{{ experience.provider }}</div>
-            <p class="timeline-description">{{ experience.description }}.</p>
+
+            <div class="mb-4">
+              <h4
+                class="timeline-title group-hover:text-accent-blue dark:group-hover:text-dark-accent-blue transition-colors"
+              >
+                {{ experience.title }}
+              </h4>
+              <div class="timeline-company">
+                <svg
+                  class="w-4 h-4 text-accent-blue dark:text-dark-accent-blue"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                  />
+                </svg>
+                <span>{{ experience.provider }}</span>
+              </div>
+            </div>
+
+            <div class="timeline-description-container">
+              <p class="timeline-description">{{ experience.description }}.</p>
+            </div>
+
             <div class="timeline-technologies">
               <span
                 class="tech-tag"
                 *ngFor="let technology of experience.technologies"
-                >{{ technology }}</span
               >
+                <svg
+                  class="tech-icon"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+                  />
+                </svg>
+                <span>{{ technology }}</span>
+              </span>
             </div>
           </div>
         </div>

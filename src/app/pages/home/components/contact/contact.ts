@@ -54,6 +54,9 @@ export class Contact implements OnInit, AfterViewInit {
         };
       },
       error: (error) => {
+        if (error.status === 400) {
+          return this.toastService.show('Invalid form provided', 'error');
+        }
         this.toastService.show('Too many requests.', 'error');
       },
     });

@@ -41,7 +41,7 @@ export class Portfolio implements OnInit, AfterViewInit, OnChanges {
   ngAfterViewInit(): void {
     this.animationService.createFloatingElements(
       this.portfolioBgRef.nativeElement,
-      'portfolio'
+      "projects"
     );
   }
 

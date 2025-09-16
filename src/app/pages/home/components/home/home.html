@@ -2,39 +2,40 @@
   id="home"
   class="min-h-screen flex items-center px-4 sm:px-8 lg:px-16 relative overflow-hidden section-transition"
 >
-  <!-- Code Rain Animation -->
   <div class="home-code-container" #codeRain></div>
 
   <div class="max-w-6xl mx-auto w-full relative z-10">
     <div class="animate-on-scroll">
       <h1
-        class="text-4xl sm:text-6xl lg:text-8xl font-bold mb-4 sm:mb-6 leading-tight relative z-10"
+        class="text-3xl sm:text-5xl lg:text-7xl xl:text-8xl font-bold mb-3 sm:mb-4 lg:mb-6 leading-tight relative z-10"
       >
         <div class="typing-container">
           <span class="typing-text text-text-primary" #typingText></span>
         </div>
       </h1>
       <h2
-        class="text-xl sm:text-2xl lg:text-3xl text-text-secondary mb-6 sm:mb-8 animate-on-scroll delay-1"
+        class="text-lg sm:text-xl lg:text-2xl xl:text-3xl text-text-secondary mb-4 sm:mb-6 lg:mb-8 animate-on-scroll delay-1"
       >
         {{ personalData.title }}
       </h2>
       <p
-        class="text-base sm:text-lg text-text-muted mb-8 sm:mb-12 max-w-2xl leading-relaxed animate-on-scroll delay-2"
+        class="text-sm sm:text-base lg:text-lg text-text-muted mb-6 sm:mb-8 lg:mb-12 max-w-xl sm:max-w-2xl leading-relaxed animate-on-scroll delay-2"
       >
         {{ personalData.bio }}.
       </p>
-      <div class="flex flex-wrap gap-6 animate-on-scroll delay-3">
-        <a href="#portfolio">
+      <div
+        class="flex flex-col sm:flex-row gap-4 sm:gap-6 animate-on-scroll delay-3"
+      >
+        <a href="#portfolio" class="w-full sm:w-auto">
           <button
-            class="bg-gradient-to-r from-accent-blue to-light-blue text-white px-8 py-4 rounded-lg hover:shadow-xl hover:scale-105 transition-all duration-200 blue-glow"
+            class="w-full sm:w-auto bg-gradient-to-r from-accent-blue to-light-blue text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg hover:shadow-xl hover:scale-105 transition-all duration-200 blue-glow text-sm sm:text-base"
           >
             View My Work
           </button>
         </a>
         <button
           (click)="onDownloadClick()"
-          class="border-2 border-accent-blue text-accent-blue px-8 py-4 rounded-lg hover:bg-accent-blue hover:text-white hover:scale-105 transition-all duration-200"
+          class="w-full sm:w-auto border-2 border-accent-blue text-accent-blue px-6 sm:px-8 py-3 sm:py-4 rounded-lg hover:bg-accent-blue hover:text-white hover:scale-105 transition-all duration-200 text-sm sm:text-base"
         >
           Download CV
         </button>
@@ -42,12 +43,19 @@
     </div>
   </div>
 
-  <!-- Floating Elements -->
   <div
-    class="absolute top-20 right-20 w-32 h-32 bg-accent-blue/10 rounded-full blur-xl animate-float z-5"
+    class="absolute top-10 sm:top-20 right-5 sm:right-20 w-24 sm:w-32 h-24 sm:h-32 bg-accent-blue/10 rounded-full blur-xl animate-float z-5"
   ></div>
   <div
-    class="absolute bottom-40 right-40 w-24 h-24 bg-light-blue/10 rounded-full blur-xl animate-float z-5"
+    class="absolute -bottom-10 sm:bottom-40 right-10 sm:right-40 w-20 sm:w-24 h-20 sm:h-24 bg-light-blue/10 rounded-full blur-xl animate-float z-5"
     style="animation-delay: 3s"
+  ></div>
+  <div
+    class="absolute top-1/4 left-5 w-16 h-16 bg-accent-blue/5 rounded-full blur-lg animate-float z-5 sm:hidden"
+    style="animation-delay: 1.5s"
+  ></div>
+  <div
+    class="absolute bottom-1/3 left-10 w-12 h-12 bg-light-blue/5 rounded-full blur-lg animate-float z-5 sm:hidden"
+    style="animation-delay: 4.5s"
   ></div>
 </section>

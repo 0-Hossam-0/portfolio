@@ -10,8 +10,35 @@
 
     <div class="container">
       <div class="section-header">
-        <h2 class="section-title">My Projects</h2>
-        <p class="section-subtitle">
+        <div
+          class="inline-flex items-center justify-center px-4 py-1.5 mb-4 sm:mb-6 rounded-full bg-accent-blue/10 dark:bg-dark-accent-blue/10"
+        >
+          <svg
+            class="w-5 h-5 mr-2 text-accent-blue dark:text-dark-accent-blue"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+            />
+          </svg>
+          <span
+            class="text-sm font-semibold text-accent-blue dark:text-dark-accent-blue"
+            >Portfolio</span
+          >
+        </div>
+        <h2
+          class="section-title text-3xl sm:text-4xl lg:text-5xl font-bold mb-4"
+        >
+          My Projects
+        </h2>
+        <p
+          class="section-subtitle text-base sm:text-lg text-text-secondary dark:text-dark-text-secondary max-w-xl mx-auto"
+        >
           Explore my latest work and creative solutions
         </p>
       </div>
@@ -25,7 +52,11 @@
           style="cursor: pointer"
         >
           <div class="project-image">
-            <img [src]="project.images[0]" [alt]="project.title" />
+            <img
+              [src]="project.images[0]"
+              [alt]="project.title"
+              loading="lazy"
+            />
             <div class="project-overlay">
               <div class="project-links">
                 <a
@@ -33,11 +64,13 @@
                   class="project-link"
                   target="_blank"
                   rel="noopener"
+                  (click)="$event.stopPropagation()"
                 >
-                  <a target="_blank" [href]="project.githubLink">
-                    <lucide-icon [img]="githubIcon"></lucide-icon>
-                  </a>
-                  GitHub
+                  <lucide-icon
+                    [img]="githubIcon"
+                    class="w-5 h-5 sm:w-6 sm:h-6"
+                  ></lucide-icon>
+                  <span class="hidden sm:inline ml-2">GitHub</span>
                 </a>
               </div>
             </div>
@@ -45,17 +78,21 @@
 
           <div class="project-content">
             <div class="project-header">
-              <h3 class="project-title">{{ project.title }}</h3>
-              <div class="project-meta"></div>
+              <h3 class="project-title text-lg sm:text-xl font-semibold mb-2">
+                {{ project.title }}
+              </h3>
             </div>
-            <p class="project-description">{{ project.description }}</p>
-
-            <div class="project-details">
-              <div class="project-duration"></div>
-            </div>
+            <p
+              class="project-description text-sm sm:text-base text-text-secondary dark:text-dark-text-secondary line-clamp-2 sm:line-clamp-3 mb-4"
+            >
+              {{ project.description }}
+            </p>
 
             <div class="project-technologies">
-              <span *ngFor="let tech of project.technologies" class="tech-tag">
+              <span
+                *ngFor="let tech of project.technologies"
+                class="tech-tag inline-flex items-center text-xs sm:text-sm px-2 py-1 sm:px-3 sm:py-1.5 rounded-full bg-accent-blue/10 dark:bg-dark-accent-blue/10 text-accent-blue dark:text-dark-accent-blue mr-2 mb-2"
+              >
                 {{ tech }}
               </span>
             </div>
