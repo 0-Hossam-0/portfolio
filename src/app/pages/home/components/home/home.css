@@ -99,7 +99,7 @@
 /* Mobile Optimizations */
 .typing-container {
   display: inline-block;
-  min-height: 2.5em;
+  min-height: 1.5em;
 }
 
 @media (max-width: 639px) {

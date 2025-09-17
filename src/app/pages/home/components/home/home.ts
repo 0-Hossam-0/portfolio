@@ -79,15 +79,7 @@ export class Home implements OnInit, AfterViewInit {
 
         currentIndex++;
         setTimeout(typeCharacter, 150);
-      } else {
-        setTimeout(() => {
-          typingElement.style.borderRight = "none";
-          const cursor = document.createElement("span");
-          cursor.className = "typing-cursor";
-          cursor.style.animation = "blink 1s infinite";
-          typingElement.parentNode?.appendChild(cursor);
-        }, 500);
-      }
+      } 
     };
 
     setTimeout(typeCharacter, 1000);
