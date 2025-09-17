@@ -5,7 +5,7 @@ import { ThemeService } from "../../../../services/theme";
 import { ScrollService } from "../../../../services/scroll";
 import { Subscription } from "rxjs";
 import { IData } from "../../../../services/data";
-import { Github, Linkedin, LucideAngularModule } from "lucide-angular";
+import { Github, Linkedin, LucideAngularModule, Home } from "lucide-angular";
 
 @Component({
   selector: "app-header",
@@ -30,6 +30,7 @@ export class Header implements OnInit {
   ) {}
   githubIcon = Github;
   linkedinIcon = Linkedin;
+  homeIcon = Home;
 
   @Input({ required: true })
   set headerData(value: {

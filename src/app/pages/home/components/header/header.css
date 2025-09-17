@@ -92,6 +92,35 @@
   color: var(--dark-accent-blue);
 }
 
+.home-button-enhanced {
+  border: 2px solid transparent;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.home-button-enhanced:hover {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+}
+
+:host-context(.dark) .home-button-enhanced:hover {
+  border-color: var(--dark-accent-blue);
+  box-shadow: 0 0 20px rgba(96, 165, 250, 0.5);
+}
+
+.home-button-enhanced:hover lucide-icon {
+  animation: bounce 0.5s ease;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
 .desktop-profile {
   display: none;
 }
