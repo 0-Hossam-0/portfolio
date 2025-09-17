@@ -17,7 +17,7 @@ import { IData } from "../../services/data";
 import { CommonModule } from "@angular/common";
 import { Footer } from "./components/footer/footer";
 import { ActivatedRoute } from "@angular/router";
-import { allData$ } from "../../events/error";
+import { allData$ } from "../../events/events";
 import { Subscription } from "rxjs";
 
 @Component({
@@ -47,7 +47,7 @@ export class HomePage implements OnInit, OnDestroy {
     private scrollService: ScrollService,
     private animationService: AnimationService,
     private route: ActivatedRoute,
-    private cd: ChangeDetectorRef,
+    private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {

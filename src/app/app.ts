@@ -12,9 +12,8 @@ import { Error } from "./public components/error/error";
   imports: [RouterOutlet, Toast, Loading, CommonModule, Error],
   standalone: true,
 })
-export class App  {
+export class App {
   errorDetail: string | null = null;
   constructor(private router: Router) {}
-
 
 }

@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { catchError, forkJoin, Observable, of, Subject, takeUntil } from "rxjs";
-import { allData$, hasError$ } from "../events/error";
+import { allData$, hasError$, loadingStatus$ } from "../events/events";
 
 export interface IData {
   projects: {
@@ -51,50 +51,45 @@ export class DataService {
   private cancel$ = new Subject<void>();
   private apiUrl = "https://backend-portfolio-steel.vercel.app/api";
   isLoading = false;
-  progressBarValue = 0;
   isFirstLoad = true;
-  hasError: boolean = false;
 
   fetchWithProgress(): Observable<IData | null> {
     this.isLoading = true;
-    this.progressBarValue = 0;
+    loadingStatus$.next({
+      isLoading: true,
+      status: "pending",
+    });
 
     return new Observable<IData | null>((observer) => {
-      let fakeInterval = setInterval(() => {
-        if (this.progressBarValue < 90) {
-          this.progressBarValue += 5;
-        }
-      }, 100);
-
       this.http
-        .get<IData>(`${this.apiUrl}/home`)
+        .get<IData>(`${this.apiUrl}/home`, {
+          observe: "response",
+        })
         .pipe(
           takeUntil(this.cancel$),
           catchError(() => {
-            clearInterval(fakeInterval);
-            this.progressBarValue = 0;
             this.isLoading = false;
-            hasError$.next(true);
-            this.hasError = true;
+            loadingStatus$.next({
+              isLoading: false,
+              status: "error",
+            });
             observer.next(this.emptyData());
             observer.complete();
             return of(null);
           })
         )
         .subscribe({
-          next: (data) => {
-            clearInterval(fakeInterval);
-            this.progressBarValue = 100;
-            const normalized = this.normalizeData(data);
-            observer.next(normalized);
-            allData$.next(normalized);
-            observer.complete();
-          },
-          complete: () => {
-            this.isLoading = false;
-            this.hasError = false;
-            this.isFirstLoad = false;
-            clearInterval(fakeInterval);
+          next: (response) => {
+            if (response && response.ok) {
+              loadingStatus$.next({
+                isLoading: false,
+                status: "success",
+              });
+              const normalized = this.normalizeData(response.body);
+              observer.next(normalized);
+              allData$.next(normalized);
+              observer.complete();
+            }
           },
         });
     });
@@ -121,7 +116,7 @@ export class DataService {
         skills: [],
         image: "",
       },
-      hasError: this.hasError,
+      hasError: loadingStatus$.getValue().status === "error",
     };
   }
 
@@ -130,11 +125,8 @@ export class DataService {
   }
 
   cancelRequest() {
-    if (!this.isFirstLoad) {
-      this.cancel$.next();
-      this.isLoading = false;
-      this.progressBarValue = 0;
-    }
+    this.cancel$.next();
+    this.isLoading = false;
   }
 
   getHeaderData(): Observable<{

@@ -6,7 +6,7 @@ import { Header } from "../home/components/header/header";
 import { Footer } from "../home/components/footer/footer";
 import { Github, LucideAngularModule } from "lucide-angular";
 import { Subscription } from "rxjs";
-import { allData$ } from "../../events/error";
+import { allData$ } from "../../events/events";
 
 @Component({
   selector: "app-projects",

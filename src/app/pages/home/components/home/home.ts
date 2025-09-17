@@ -54,8 +54,6 @@ export class Home implements OnInit, AfterViewInit {
   }
 
   private startTypingAnimation(): void {
-    console.log("here");
-    console.log("personal data", this.personalData);
     const typingElement = this.typingTextRef.nativeElement;
     const text = `Hello, I'm ${this.personalData.name}`;
     const nameStart = text.indexOf(`${this.personalData.name}`);

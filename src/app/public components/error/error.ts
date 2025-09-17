@@ -4,16 +4,19 @@ import {
   Component,
   ElementRef,
   EventEmitter,
-  HostListener,
-  Input,
   OnDestroy,
   OnInit,
   Output,
   ViewChild,
 } from "@angular/core";
 import { LucideAngularModule, RotateCw } from "lucide-angular";
-import { Subscription, catchError, of } from "rxjs";
-import { allData$, hasError$ } from "../../events/error";
+import { Subscription } from "rxjs";
+import {
+  allData$,
+  hasError$,
+  isFirstLoad$,
+  loadingStatus$,
+} from "../../events/events";
 import { DataService } from "../../services/data";
 
 @Component({
@@ -51,8 +54,8 @@ export class Error implements AfterViewInit, OnDestroy, OnInit {
   constructor(private dataService: DataService) {}
 
   ngOnInit(): void {
-    this.sub = hasError$.subscribe((value) => {
-      this.hasError = value;
+    this.sub = loadingStatus$.subscribe((value) => {
+      this.hasError = value.status === "error";
       if (this.hasError) {
         if (this.retryCount < this.maxRetries) {
           this.retryCount++;
@@ -77,22 +80,19 @@ export class Error implements AfterViewInit, OnDestroy, OnInit {
     this.hasError = false;
     this.dataService.fetchWithProgress().subscribe({
       next: (data) => {
-        this.hasError = this.dataService.hasError;
+        this.hasError = loadingStatus$.getValue().status === "error";
         if (!this.hasError) {
+          isFirstLoad$.next(true);
           this.retryCount = 0;
         }
         allData$.next(data);
       },
       error: (err) => {
+        isFirstLoad$.next(true);
         this.hasError = true;
         hasError$.next(true);
       },
     });
-  }
-
-  onCancel() {
-    this.hasError = false;
-    this.dataService.cancelRequest();
   }
 
   ngAfterViewInit(): void {

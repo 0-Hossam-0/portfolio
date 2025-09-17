@@ -4,7 +4,7 @@ import { IData } from "../../services/data";
 import { Header } from "../home/components/header/header";
 import { Footer } from "../home/components/footer/footer";
 import { ActivatedRoute, Router } from "@angular/router";
-import { allData$ } from "../../events/error";
+import { allData$ } from "../../events/events";
 import { Subscription } from "rxjs";
 
 @Component({
