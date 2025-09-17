@@ -1,4 +1,9 @@
-import { Component, type OnInit, type OnDestroy } from "@angular/core";
+import {
+  Component,
+  type OnInit,
+  type OnDestroy,
+  ChangeDetectorRef,
+} from "@angular/core";
 import { ScrollService } from "../../services/scroll";
 import { Experience } from "./components/experience/experience";
 import { Contact } from "./components/contact/contact";
@@ -12,7 +17,7 @@ import { IData } from "../../services/data";
 import { CommonModule } from "@angular/common";
 import { Footer } from "./components/footer/footer";
 import { ActivatedRoute } from "@angular/router";
-import { allData$, hasError$ } from "../../events/error";
+import { allData$ } from "../../events/error";
 import { Subscription } from "rxjs";
 
 @Component({
@@ -41,7 +46,8 @@ export class HomePage implements OnInit, OnDestroy {
   constructor(
     private scrollService: ScrollService,
     private animationService: AnimationService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private cd: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -49,6 +55,8 @@ export class HomePage implements OnInit, OnDestroy {
     if (this.allData.hasError) {
       this.sub = allData$.subscribe((data) => {
         if (data.hasError) return;
+        this.cd.detectChanges();
+        this.animationService.initScrollAnimations();
         this.allData = data;
       });
     }
@@ -79,10 +87,6 @@ export class HomePage implements OnInit, OnDestroy {
       this.scrollTicking = true;
     }
   }
-
-  // scrollToTop(): void {
-  //   this.scrollService.smoothScrollToSection("#home");
-  // }
 
   ngAfterViewInit(): void {
     this.scrollService.initScrollListener();

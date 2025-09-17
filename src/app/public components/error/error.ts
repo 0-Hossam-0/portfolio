@@ -28,7 +28,7 @@ export class Error implements AfterViewInit, OnDestroy, OnInit {
   title = "Network Error";
   message = "We had trouble loading your data. We will retry shortly.";
   details?: string | null = null;
-  retryCount: number = 0;
+  retryCount: number = -1;
   readonly maxRetries: number = 3;
   get isMaxRetriesReached(): boolean {
     return this.retryCount >= this.maxRetries;
