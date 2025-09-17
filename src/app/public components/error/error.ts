@@ -33,7 +33,7 @@ export class Error implements AfterViewInit, OnDestroy, OnInit {
   get isMaxRetriesReached(): boolean {
     return this.retryCount >= this.maxRetries;
   }
-  countdownStart = 3;
+  countdownStart = 5;
   autoRetry = true;
 
   @ViewChild("primaryButton", { static: true })
@@ -71,7 +71,6 @@ export class Error implements AfterViewInit, OnDestroy, OnInit {
   }
 
   onRetry() {
-    console.log("here");
     if (this.retryCount >= this.maxRetries) {
       return;
     }
@@ -130,7 +129,6 @@ export class Error implements AfterViewInit, OnDestroy, OnInit {
     this.clearTimers();
     this.progressPercent = 100;
     this.reconnecting = false;
-    console.log("auto retry");
     this.onRetry();
   }
 
@@ -140,7 +138,6 @@ export class Error implements AfterViewInit, OnDestroy, OnInit {
     }
     this.reconnecting = true;
     this.clearTimers();
-    console.log("manual retry");
     this.onRetry();
   }
 
@@ -154,10 +151,4 @@ export class Error implements AfterViewInit, OnDestroy, OnInit {
       this.smoothTimerId = null;
     }
   }
-
-  // allow Esc to cancel
-  // @HostListener("document:keydown.escape", ["$event"])
-  // onEsc() {
-  //   this.closeCancel();
-  // }
 }
