@@ -6,7 +6,6 @@
   <div
     class="max-w-6xl mx-auto w-full relative z-10 flex flex-col lg:flex-row items-center lg:justify-between py-16"
   >
-    <!-- Mobile Avatar (visible on small screens, hidden on large) -->
     <div class="lg:hidden mb-8 w-full text-center">
       <img
         [src]="personalData.image"
@@ -15,7 +14,7 @@
       />
     </div>
 
-    <div class="animate-on-scroll flex-shrink-0 lg:w-1/2">
+    <div class="animate-on-scroll flex-shrink-0 lg:w-2/3">
       <h1
         class="text-3xl sm:text-5xl lg:text-7xl xl:text-6xl font-bold mb-3 sm:mb-4 lg:mb-6 leading-tight relative z-40"
       >
@@ -24,12 +23,12 @@
         </div>
       </h1>
       <h2
-        class="text-lg sm:text-xl lg:text-2xl xl:text-3xl text-black dark:text-gray-300 mb-4 sm:mb-6 lg:mb-8 animate-on-scroll delay-1"
+        class="text-lg sm:text-xl lg:text-3xl xl:text-3xl text-black dark:text-gray-300 mb-4 sm:mb-6 lg:mb-8 animate-on-scroll delay-1"
       >
         {{ personalData.title }}
       </h2>
       <p
-        class="text-sm sm:text-base lg:text-lg text-gray-700 dark:text-gray-400 mb-6 sm:mb-8 lg:mb-12 max-w-xl sm:max-w-2xl leading-relaxed animate-on-scroll delay-2"
+        class="text-sm sm:text-base lg:text-lg text-gray-700 dark:text-gray-400 mb-6 sm:mb-8 lg:mb-12 max-w-xl sm:max-w-4xl leading-relaxed animate-on-scroll delay-2"
       >
         {{ personalData.bio }}.
       </p>

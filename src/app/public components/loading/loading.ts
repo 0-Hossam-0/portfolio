@@ -20,8 +20,9 @@ export class Loading implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isFirstLoad = isFirstLoad$.getValue();
-    this.isLoading = this.dataService.isLoading;
+    this.isLoading = loadingStatus$.getValue().isLoading;
     loadingStatus$.subscribe((loadingStatus) => {
+      console.log("loading status", loadingStatus);
       this.isLoading = loadingStatus.isLoading;
       let fakeInterval = setInterval(() => {
         if (this.progress < 90) {
@@ -35,6 +36,7 @@ export class Loading implements OnInit, OnDestroy {
       }, 100);
     });
     isFirstLoad$.subscribe((value) => {
+      console.log("is first load", value);
       this.isFirstLoad = value;
     });
   }
@@ -47,7 +49,8 @@ export class Loading implements OnInit, OnDestroy {
 
   @HostListener("document:click", ["$event"])
   onClick(event: MouseEvent) {
-    if (this.isLoading && !this.isFirstLoad) this.dataService.cancelRequest();
+    const element = event.target as HTMLElement;
+    if (this.isLoading && !this.isFirstLoad && element.id === 'loading-screen') this.dataService.cancelRequest();
   }
 
   @HostListener("document:touchstart", ["$event"])

@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { catchError, forkJoin, Observable, of, Subject, takeUntil } from "rxjs";
-import { allData$, hasError$, loadingStatus$ } from "../events/events";
+import { allData$, hasError$, isFirstLoad$, loadingStatus$ } from "../events/events";
 
 export interface IData {
   projects: {
@@ -50,11 +50,8 @@ export class DataService {
   constructor(private http: HttpClient) {}
   private cancel$ = new Subject<void>();
   private apiUrl = "https://backend-portfolio-steel.vercel.app/api";
-  isLoading = false;
-  isFirstLoad = true;
 
   fetchWithProgress(): Observable<IData | null> {
-    this.isLoading = true;
     loadingStatus$.next({
       isLoading: true,
       status: "pending",
@@ -68,11 +65,11 @@ export class DataService {
         .pipe(
           takeUntil(this.cancel$),
           catchError(() => {
-            this.isLoading = false;
             loadingStatus$.next({
               isLoading: false,
               status: "error",
             });
+            isFirstLoad$.next(true);
             observer.next(this.emptyData());
             observer.complete();
             return of(null);
@@ -85,6 +82,7 @@ export class DataService {
                 isLoading: false,
                 status: "success",
               });
+              isFirstLoad$.next(false);
               const normalized = this.normalizeData(response.body);
               observer.next(normalized);
               allData$.next(normalized);
@@ -126,7 +124,10 @@ export class DataService {
 
   cancelRequest() {
     this.cancel$.next();
-    this.isLoading = false;
+    loadingStatus$.next({
+      isLoading: false,
+      status: "pending",
+    });
   }
 
   getHeaderData(): Observable<{

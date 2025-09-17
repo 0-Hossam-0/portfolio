@@ -81,8 +81,9 @@ export class Error implements AfterViewInit, OnDestroy, OnInit {
     this.dataService.fetchWithProgress().subscribe({
       next: (data) => {
         this.hasError = loadingStatus$.getValue().status === "error";
+        console.log('error', this.hasError);
         if (!this.hasError) {
-          isFirstLoad$.next(true);
+          isFirstLoad$.next(false);
           this.retryCount = 0;
         }
         allData$.next(data);
