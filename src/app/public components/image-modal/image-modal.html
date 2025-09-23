@@ -1,0 +1,15 @@
+<div
+  *ngIf="imageUrl"
+  class="modal-overlay fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4"
+  (click)="onOverlayClick($event)"
+>
+  <div class="modal-content relative bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-3xl max-h-full overflow-auto">
+    <button
+      class="modal-close-button absolute top-3 right-3 text-white text-2xl font-bold leading-none hover:text-gray-300 focus:outline-none"
+      (click)="onClose()"
+    >
+      &times;
+    </button>
+    <img [src]="imageUrl" alt="Project Image" class="max-w-full h-auto rounded-lg" />
+  </div>
+</div>

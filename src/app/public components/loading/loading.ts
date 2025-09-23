@@ -22,7 +22,6 @@ export class Loading implements OnInit, OnDestroy {
     this.isFirstLoad = isFirstLoad$.getValue();
     this.isLoading = loadingStatus$.getValue().isLoading;
     loadingStatus$.subscribe((loadingStatus) => {
-      console.log("loading status", loadingStatus);
       this.isLoading = loadingStatus.isLoading;
       let fakeInterval = setInterval(() => {
         if (this.progress < 90) {
@@ -36,7 +35,6 @@ export class Loading implements OnInit, OnDestroy {
       }, 100);
     });
     isFirstLoad$.subscribe((value) => {
-      console.log("is first load", value);
       this.isFirstLoad = value;
     });
   }

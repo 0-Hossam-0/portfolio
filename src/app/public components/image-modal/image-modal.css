@@ -1,0 +1,27 @@
+.modal-overlay {
+  transition: opacity 0.3s ease-in-out;
+  opacity: 0;
+  pointer-events: none; /* Initially disable pointer events */
+  top: 0;
+  left: 0;
+}
+
+.modal-overlay.show {
+  opacity: 1;
+  pointer-events: auto; /* Enable pointer events when shown */
+}
+
+.modal-content {
+  transform: translateY(-20px);
+  transition: transform 0.3s ease-in-out;
+}
+
+.modal-overlay.show .modal-content {
+  transform: translateY(0);
+}
+
+.modal-close-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}

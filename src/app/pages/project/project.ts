@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, UrlTree } from '@angular/router';
 import { ThemeService } from '../../services/theme';
 import { Header } from '../home/components/header/header';
 import { IData } from '../../services/data';
+import { ImageModalComponent } from '../../public components/image-modal/image-modal'; // Import the modal component
 
 interface IProjectData {
   project: IData['projects'][number];
@@ -17,13 +18,15 @@ interface IProjectData {
   selector: 'app-project',
   templateUrl: './project.html',
   styleUrls: ['./project.css'],
-  imports: [CommonModule, Header],
+  imports: [CommonModule, Header, ImageModalComponent], // Add ImageModalComponent to imports
 })
 export class ProjectPage implements OnInit, OnDestroy {
   isLoading = true;
   hasError = false;
   projectData!: IProjectData['project'];
   headerData!: IProjectData['headerData'];
+  selectedImageUrl: string | null = null; // Property to hold the URL of the image to display in the modal
+
   constructor(
     private themeService: ThemeService,
     private route: ActivatedRoute,
@@ -76,5 +79,15 @@ export class ProjectPage implements OnInit, OnDestroy {
 
   onNextProject(): void {
     this.router.navigate(['/projects']);
+  }
+
+  // Method to open the image modal
+  openImageModal(imageUrl: string): void {
+    this.selectedImageUrl = imageUrl;
+  }
+
+  // Method to close the image modal
+  closeImageModal(): void {
+    this.selectedImageUrl = null;
   }
 }
