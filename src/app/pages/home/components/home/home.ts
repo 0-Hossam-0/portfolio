@@ -45,11 +45,8 @@ export class Home implements OnInit, AfterViewInit {
       })
       .subscribe((blob) => {
         const url = window.URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "Hossam-Ahmed-Ali.pdf";
-        a.click();
-        window.URL.revokeObjectURL(url);
+        // Open the PDF in a new tab
+        window.open(url, "_blank");
       });
   }
 
@@ -79,7 +76,7 @@ export class Home implements OnInit, AfterViewInit {
 
         currentIndex++;
         setTimeout(typeCharacter, 150);
-      } 
+      }
     };
 
     setTimeout(typeCharacter, 1000);
