@@ -2034,14 +2034,12 @@ section {
 
 .tech-tag:hover {
   background: #2563eb;
-  color: white;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
 }
 
 .dark .tech-tag:hover {
   background: #60a5fa;
-  color: #0f172a;
   box-shadow: 0 4px 12px rgba(96, 165, 250, 0.4);
 }
 

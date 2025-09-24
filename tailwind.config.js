@@ -8,7 +8,6 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Light mode colors
         "light-bg": "#f8fafc",
         "lighter-bg": "#ffffff",
         "accent-blue": "#2563eb",
@@ -20,7 +19,6 @@ module.exports = {
         "text-primary": "#1e293b",
         "text-secondary": "#475569",
         "text-muted": "#64748b",
-        // Dark mode colors
         "dark-bg": "#0f172a",
         "darker-bg": "#020617",
         "dark-surface": "#1e293b",

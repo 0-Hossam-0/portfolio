@@ -214,12 +214,12 @@
     font-weight: 500;
     transition: all 0.2s ease;
     background: var(--accent-blue-10);
-    color: var(--accent-blue);
+    /* color: var(--accent-blue); */
 }
 
 .dark .tech-tag {
     background: var(--dark-accent-blue-10);
-    color: var(--dark-accent-blue);
+    /* color: var(--dark-accent-blue); */
 }
 
 .tech-tag:hover {
@@ -305,7 +305,7 @@
         gap: 2.5rem;
     }
 }
-  
+
 
   .pulsing-orb {
     position: absolute;
@@ -692,8 +692,6 @@
 
   .tech-tag {
     padding: 0.5rem 1rem;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
     border-radius: 20px;
     font-size: 0.875rem;
     font-weight: 500;
