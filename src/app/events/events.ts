@@ -8,5 +8,5 @@ export const loadingStatus$ = new BehaviorSubject<{
   status: "success" | "error" | "pending";
 }>({
   isLoading: true,
-  status: "pending",
+  status: "error",
 });
