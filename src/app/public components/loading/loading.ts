@@ -13,7 +13,7 @@ import { isFirstLoad$, loadingStatus$ } from "../../events/events";
 })
 export class Loading implements OnInit, OnDestroy {
   constructor(private dataService: DataService, private router: Router) {}
-  isLoading!: boolean;
+  isLoading: boolean = false;
   progress = 0;
   isFirstLoad: boolean = true;
   private progressInterval: any;
