@@ -12,7 +12,7 @@ import { isFirstLoad$, loadingStatus$ } from "../../events/events";
   styleUrls: ["./loading.css"],
 })
 export class Loading implements OnInit, OnDestroy {
-  constructor(private dataService: DataService, private router: Router) {}
+  constructor(private dataService: DataService) {}
   isLoading: boolean = false;
   progress = 0;
   isFirstLoad: boolean = true;

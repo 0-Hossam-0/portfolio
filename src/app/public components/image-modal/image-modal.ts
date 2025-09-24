@@ -20,7 +20,6 @@ import { CommonModule } from "@angular/common";
 export class ImageModalComponent implements OnInit{
   ngOnInit(): void {
     document.onclick = (e) => {
-      console.log(e.target);
     }
   }
   @Input() imageUrl: string | null = null;
