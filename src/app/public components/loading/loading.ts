@@ -1,7 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { Component, HostListener, OnDestroy, OnInit } from "@angular/core";
 import { DataService } from "../../services/data";
-import { Router } from "@angular/router";
 import { isFirstLoad$, loadingStatus$ } from "../../events/events";
 
 @Component({
@@ -19,20 +18,21 @@ export class Loading implements OnInit, OnDestroy {
   private progressInterval: any;
 
   ngOnInit() {
-    this.isFirstLoad = isFirstLoad$.getValue();
-    this.isLoading = loadingStatus$.getValue().isLoading;
     loadingStatus$.subscribe((loadingStatus) => {
-      this.isLoading = loadingStatus.isLoading;
+      if (loadingStatus.isLoading && loadingStatus.status === "pending") this.isLoading = true;
+      else this.isLoading = false;
       let fakeInterval = setInterval(() => {
         if (this.progress < 90) {
           this.progress += 5;
         } else if (
           loadingStatus$.getValue().status === "success" &&
           this.progress === 90
-        )
+        ) {
           this.progress = 100;
-        else {
-          clearInterval(fakeInterval);
+          setTimeout(() => {
+            this.progress = 0;
+            clearInterval(fakeInterval);
+          }, 300);
           this.progress = 0;
         }
       }, 100);
