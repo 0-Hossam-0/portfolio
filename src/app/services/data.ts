@@ -50,6 +50,7 @@ export class DataService {
   constructor(private http: HttpClient) {}
   private cancel$ = new Subject<void>();
   private apiUrl = "https://backend-portfolio-steel.vercel.app/api";
+  // private apiUrl = "http://localhost:3000/api";
 
   fetchWithProgress(): Observable<IData | null> {
     loadingStatus$.next({
@@ -98,14 +99,23 @@ export class DataService {
   ): IData & { hasError?: boolean } {
     return {
       projects: data?.projects ?? [],
-      experiences: data?.experiences ?? [],
+      experiences:
+        data?.experiences?.map((experience) => ({
+          ...experience,
+          completionDate: new Date(experience.completionDate),
+          startDate: new Date(experience.startDate),
+        })) ?? [],
       contact: data?.contact ?? {
         email: "",
         phone: "",
         linkedin: "",
         github: "",
       },
-      updates: data?.updates ?? [],
+      updates:
+        data?.updates?.map((update) => ({
+          ...update,
+          postDate: new Date(update.postDate),
+        })) ?? [],
       personal: data?.personal ?? {
         name: "",
         location: "",

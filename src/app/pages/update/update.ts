@@ -4,21 +4,24 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { DataService, IData } from '../../services/data';
 import { ThemeService } from '../../services/theme';
 import { Header } from '../home/components/header/header';
+import { ImageModalComponent } from '../../public components/image-modal/image-modal';
 
 @Component({
-  selector: 'app-update',
+  selector: "app-update",
   standalone: true,
-  imports: [CommonModule, RouterModule, Header],
-  templateUrl: './update.html',
-  styleUrl: './update.css',
+  imports: [CommonModule, RouterModule, Header, ImageModalComponent],
+  templateUrl: "./update.html",
+  styleUrl: "./update.css",
 })
 export class UpdatePage {
-  updateData!: IData['updates'][number];
+  updateData!: IData["updates"][number];
   headerData!: {
-    personalData: IData['personal'];
-    contactData: IData['contact'];
+    personalData: IData["personal"];
+    contactData: IData["contact"];
   };
-  @ViewChild('cardElement', { static: false }) cardElement!: ElementRef;
+  selectedImageUrl: string | null = null;
+
+  @ViewChild("cardElement", { static: false }) cardElement!: ElementRef;
 
   currentImageIndex = 0;
   isVisible = false;
@@ -28,7 +31,7 @@ export class UpdatePage {
   constructor(
     private router: Router,
     private themeService: ThemeService,
-    private route: ActivatedRoute,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -37,7 +40,7 @@ export class UpdatePage {
 
     this.route.data.subscribe((data: any) => {
       if (data) {
-        this.updateData = data.updateData.updateData ;
+        this.updateData = data.updateData.updateData;
         this.headerData = {
           personalData: data.updateData.headerData.personal,
           contactData: data.updateData.headerData.contact,
@@ -55,11 +58,11 @@ export class UpdatePage {
   }
 
   onBackToPortfolio(): void {
-    this.router.navigate(['/updates']);
+    this.router.navigate(["/updates"]);
   }
 
   onNextUpdate(): void {
-    this.router.navigate(['/updates']);
+    this.router.navigate(["/updates"]);
   }
 
   ngAfterViewInit(): void {
@@ -68,7 +71,7 @@ export class UpdatePage {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             this.isVisible = true;
-            entry.target.classList.add('reveal-active');
+            entry.target.classList.add("reveal-active");
           }
         });
       },
@@ -88,20 +91,20 @@ export class UpdatePage {
   }
 
   formatDate(date: Date): string {
-    return new Intl.DateTimeFormat('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
+    return new Intl.DateTimeFormat("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
     }).format(new Date(date));
   }
 
   navigateToUpdate(): void {
-    this.router.navigate(['/update', this.updateData!.title]);
+    this.router.navigate(["/update", this.updateData!.title]);
   }
 
   onImageError(event: any): void {
     // Fallback to placeholder if image fails to load
-    event.target.src = '/placeholder.svg?height=300&width=400';
+    event.target.src = "/placeholder.svg?height=300&width=400";
   }
 
   nextImage() {
@@ -120,12 +123,11 @@ export class UpdatePage {
     }
   }
 
-  // formatDate(dateString: Date): string {
-  //   const date = new Date(dateString);
-  //   return date.toLocaleDateString('en-US', {
-  //     year: 'numeric',
-  //     month: 'long',
-  //     day: 'numeric',
-  //   });
-  // }
+  openImageModal(imageUrl: string): void {
+    this.selectedImageUrl = imageUrl;
+  }
+
+  closeImageModal(): void {
+    this.selectedImageUrl = null;
+  }
 }

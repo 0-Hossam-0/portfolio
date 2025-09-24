@@ -25,7 +25,14 @@ export class Updates implements OnInit {
       this.sub = allData$.subscribe((data) => {
         if (data.hasError) return;
         this.allData = data;
+        this.allData.updates.sort(
+          (a, b) => b.postDate.getTime() - a.postDate.getTime()
+        );
       });
+    } else {
+      this.allData.updates.sort(
+        (a, b) => b.postDate.getTime() - a.postDate.getTime()
+      );
     }
   }
   onUpdateClick(update: IData["updates"][0]): void {

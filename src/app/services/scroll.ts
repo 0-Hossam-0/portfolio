@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { BehaviorSubject } from "rxjs";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class ScrollService {
-  private activeSection = new BehaviorSubject<string>('home');
+  private activeSection = new BehaviorSubject<string>("home");
   public activeSection$ = this.activeSection.asObservable();
 
   private isNavigating = false;
@@ -26,7 +26,11 @@ export class ScrollService {
     }
 
     const headerHeight = 80;
-    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
+    const targetPosition =
+      targetElement.getBoundingClientRect().top +
+      window.pageYOffset -
+      headerHeight -
+      20;
 
     const startPosition = window.pageYOffset;
     const distance = targetPosition - startPosition;
@@ -36,10 +40,8 @@ export class ScrollService {
     const smoothScroll = (timestamp: number) => {
       if (!start) start = timestamp;
       const progress = timestamp - start;
-      const percentage = Math.min(progress / duration, 1);
 
-      const easeOut = 1 - Math.pow(1 - percentage, 3);
-      window.scrollTo(0, startPosition + distance * easeOut);
+      window.scrollTo(0, startPosition + distance);
 
       if (progress < duration) {
         requestAnimationFrame(smoothScroll);
@@ -54,13 +56,13 @@ export class ScrollService {
   initScrollListener(): void {
     let ticking = false;
 
-    window.addEventListener('scroll', () => {
+    window.addEventListener("scroll", () => {
       if (this.isNavigating || ticking) return;
 
       ticking = true;
       requestAnimationFrame(() => {
-        const sections = document.querySelectorAll('section[id]');
-        let current = 'home'; // Default to home
+        const sections = document.querySelectorAll("section[id]");
+        let current = "home"; // Default to home
 
         // Check which section is currently in view
         sections.forEach((section) => {
@@ -70,19 +72,22 @@ export class ScrollService {
 
           // Consider a section active if it's in the upper portion of the viewport
           if (sectionTop <= 200 && sectionTop + sectionHeight > 200) {
-            current = section.getAttribute('id') || 'home';
+            current = section.getAttribute("id") || "home";
           }
         });
 
         // Special handling for when at the very top
         if (window.scrollY < 100) {
-          current = 'home';
+          current = "home";
         }
 
         // Special handling for when at the very bottom
-        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 100) {
+        if (
+          window.innerHeight + window.scrollY >=
+          document.body.offsetHeight - 100
+        ) {
           const lastSection = sections[sections.length - 1];
-          current = lastSection?.getAttribute('id') || 'contact';
+          current = lastSection?.getAttribute("id") || "contact";
         }
 
         if (current && current !== this.activeSection.value) {

@@ -65,7 +65,7 @@ export class Error implements AfterViewInit, OnDestroy, OnInit {
             "Maximum retry attempts reached. Please try again later or contact support.";
           this.clearTimers();
         }
-      } else {
+      } else if (value.status === "success") {
         this.clearTimers();
         this.reconnecting = false;
         this.retryCount = 0;
@@ -83,7 +83,6 @@ export class Error implements AfterViewInit, OnDestroy, OnInit {
         this.hasError = loadingStatus$.getValue().status === "error";
         if (!this.hasError) {
           isFirstLoad$.next(false);
-          this.retryCount = 0;
         }
         allData$.next(data);
       },

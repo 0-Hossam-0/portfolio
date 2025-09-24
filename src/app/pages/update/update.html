@@ -99,7 +99,10 @@
             </div>
 
             <div class="reveal order-1 lg:order-2">
-              <div class="relative rounded-2xl overflow-hidden shadow-2xl">
+              <div
+                class="relative rounded-2xl overflow-hidden shadow-2xl cursor-pointer"
+                (click)="openImageModal(updateData!.images[0])"
+              >
                 <img
                   [src]="updateData!.images[0]"
                   [alt]="updateData!.title"
@@ -117,8 +120,7 @@
 
       <section
         class="py-12 sm:py-16 lg:py-20 px-4 sm:px-8 lg:px-16 bg-black/20"
-      >
-      </section>
+      ></section>
 
       <section class="py-12 sm:py-16 lg:py-20 px-4 sm:px-8 lg:px-16">
         <div class="max-w-6xl mx-auto">
@@ -162,7 +164,10 @@
               *ngFor="let image of updateData.images"
               class="reveal card-hover"
             >
-              <div class="relative rounded-2xl overflow-hidden shadow-xl">
+              <div
+                class="relative rounded-2xl overflow-hidden shadow-xl cursor-pointer"
+                (click)="openImageModal(updateData!.images[0])"
+              >
                 <img
                   [src]="image"
                   class="w-full h-full object-cover"
@@ -220,4 +225,8 @@
       </section>
     </div>
   </main>
+  <app-image-modal
+    [imageUrl]="selectedImageUrl"
+    (close)="closeImageModal()"
+  ></app-image-modal>
 </div>

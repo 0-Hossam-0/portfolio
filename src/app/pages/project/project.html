@@ -68,8 +68,10 @@
             </div>
 
             <div class="reveal order-1 lg:order-2">
-              <div class="relative rounded-2xl overflow-hidden shadow-2xl cursor-pointer"
-                (click)="openImageModal(projectData!.images[0])">
+              <div
+                class="relative rounded-2xl overflow-hidden shadow-2xl cursor-pointer"
+                (click)="openImageModal(projectData!.images[0])"
+              >
                 <img
                   [src]="projectData!.images[0]"
                   [alt]="projectData!.title"
@@ -107,11 +109,13 @@
             class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8"
           >
             <div
-              *ngFor="let image of projectData.images"
+              *ngFor="let image of projectData.images | slice : 1"
               class="reveal card-hover"
             >
-              <div class="relative rounded-2xl overflow-hidden shadow-xl cursor-pointer"
-                (click)="openImageModal(image)">
+              <div
+                class="relative rounded-2xl overflow-hidden shadow-xl cursor-pointer"
+                (click)="openImageModal(image)"
+              >
                 <img
                   [src]="image"
                   class="w-full h-full object-cover"
@@ -148,6 +152,8 @@
       </section>
     </div>
   </main>
-
-  <app-image-modal [imageUrl]="selectedImageUrl" (close)="closeImageModal()"></app-image-modal>
+  <app-image-modal
+    [imageUrl]="selectedImageUrl"
+    (close)="closeImageModal()"
+  ></app-image-modal>
 </div>

@@ -15,17 +15,17 @@ interface IProjectData {
 }
 
 @Component({
-  selector: 'app-project',
-  templateUrl: './project.html',
-  styleUrls: ['./project.css'],
-  imports: [CommonModule, Header, ImageModalComponent], // Add ImageModalComponent to imports
+  selector: "app-project",
+  templateUrl: "./project.html",
+  styleUrls: ["./project.css"],
+  imports: [CommonModule, Header, ImageModalComponent],
 })
 export class ProjectPage implements OnInit, OnDestroy {
   isLoading = true;
   hasError = false;
-  projectData!: IProjectData['project'];
-  headerData!: IProjectData['headerData'];
-  selectedImageUrl: string | null = null; // Property to hold the URL of the image to display in the modal
+  projectData!: IProjectData["project"];
+  headerData!: IProjectData["headerData"];
+  selectedImageUrl: string | null = null;
 
   constructor(
     private themeService: ThemeService,
@@ -52,12 +52,12 @@ export class ProjectPage implements OnInit, OnDestroy {
             contactData: data.projectData.headerData.contact,
           };
         } else {
-          this.router.navigate(['/not-found']);
+          this.router.navigate(["/not-found"]);
         }
         this.isLoading = false;
       },
       error: (err) => {
-        this.router.navigate(['/not-found']);
+        this.router.navigate(["/not-found"]);
         this.isLoading = false;
       },
     });
@@ -74,19 +74,17 @@ export class ProjectPage implements OnInit, OnDestroy {
   }
 
   onBackToPortfolio(): void {
-    this.router.navigate(['/projects']);
+    this.router.navigate(["/projects"]);
   }
 
   onNextProject(): void {
-    this.router.navigate(['/projects']);
+    this.router.navigate(["/projects"]);
   }
 
-  // Method to open the image modal
   openImageModal(imageUrl: string): void {
     this.selectedImageUrl = imageUrl;
   }
 
-  // Method to close the image modal
   closeImageModal(): void {
     this.selectedImageUrl = null;
   }

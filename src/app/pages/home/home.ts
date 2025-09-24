@@ -35,7 +35,6 @@ import { Subscription } from "rxjs";
     Portfolio,
     CommonModule,
     Footer,
-    Header,
   ],
 })
 export class HomePage implements OnInit, OnDestroy {
@@ -58,8 +57,14 @@ export class HomePage implements OnInit, OnDestroy {
         this.cd.detectChanges();
         this.animationService.initScrollAnimations();
         this.allData = data;
+        this.allData.updates.sort(
+          (a, b) => b.postDate.getTime() - a.postDate.getTime()
+        );
       });
     }
+    this.allData.updates.sort(
+      (a, b) => b.postDate.getTime() - a.postDate.getTime()
+    );
 
     window.addEventListener("scroll", this.handleScroll.bind(this));
     this.route.fragment.subscribe((fragment) => {

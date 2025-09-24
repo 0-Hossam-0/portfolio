@@ -31,7 +31,10 @@ export class Loading implements OnInit, OnDestroy {
           this.progress === 90
         )
           this.progress = 100;
-        else clearInterval(fakeInterval);
+        else {
+          clearInterval(fakeInterval);
+          this.progress = 0;
+        }
       }, 100);
     });
     isFirstLoad$.subscribe((value) => {
@@ -48,7 +51,8 @@ export class Loading implements OnInit, OnDestroy {
   @HostListener("document:click", ["$event"])
   onClick(event: MouseEvent) {
     const element = event.target as HTMLElement;
-    if (this.isLoading && !this.isFirstLoad && element.id === 'loading-screen') this.dataService.cancelRequest();
+    if (this.isLoading && !this.isFirstLoad && element.id === "loading-screen")
+      this.dataService.cancelRequest();
   }
 
   @HostListener("document:touchstart", ["$event"])

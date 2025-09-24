@@ -1,5 +1,9 @@
 <!-- loading-screen.component.html -->
-<div *ngIf="isLoading" id="loading-screen" class="fixed inset-0 bg-gray-900 bg-opacity-90 flex items-center justify-center z-50 loading-container">
+<div
+  *ngIf="isLoading"
+  id="loading-screen"
+  class="fixed inset-0 bg-gray-900 bg-opacity-90 flex items-center justify-center z-50 loading-container"
+>
   <div class="text-center">
     <!-- Animated Orb -->
     <div class="orbit mx-auto">
@@ -11,19 +15,22 @@
       <div class="satellite sat-2"></div>
       <div class="satellite sat-3"></div>
     </div>
-<br>
-<br>
-<br>
+    <br />
+    <br />
+    <br />
     <!-- Progress Bar at the bottom -->
     <div class="progress-container mx-auto fade-in delayed-1">
       <div class="progress-track">
         <div class="progress-bar" [style.width]="progress + '%'"></div>
       </div>
-      <div class="text-right mt-2 text-sm text-gray-400">{{progress}}%</div>
+      <div class="text-right mt-2 text-sm text-gray-400">{{ progress }}%</div>
     </div>
 
     <!-- Dismiss Hint -->
-    <div *ngIf="!isFirstLoad" class="text-sm text-gray-400 mt-6 fade-in delayed-2 dismiss-hint">
+    <div
+      *ngIf="!isFirstLoad"
+      class="text-sm text-gray-400 mt-6 fade-in delayed-2 dismiss-hint"
+    >
       <i class="fas fa-keyboard mr-2 text-blue-400"></i>
       <span>Click to dismiss</span>
     </div>

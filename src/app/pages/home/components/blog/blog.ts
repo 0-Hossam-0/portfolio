@@ -30,7 +30,7 @@ export class Blog implements OnInit, AfterViewInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['updatesData'] && this.updatesData) {
-      this.limitedUpdatesData = this.updatesData.slice(0, 4);
+      this.limitedUpdatesData = this.updatesData.slice(0, 3);
     }
   }
 
