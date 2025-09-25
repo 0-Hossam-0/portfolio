@@ -28,7 +28,7 @@ export interface IData {
     title: string;
     description: string;
     technologies: string[];
-    completionDate: Date;
+    completionDate: Date | null;
     startDate: Date;
     provider: string;
   }[];
@@ -102,7 +102,7 @@ export class DataService {
       experiences:
         data?.experiences?.map((experience) => ({
           ...experience,
-          completionDate: new Date(experience.completionDate),
+          completionDate: experience.completionDate ? new Date(experience.completionDate) : null,
           startDate: new Date(experience.startDate),
         })) ?? [],
       contact: data?.contact ?? {

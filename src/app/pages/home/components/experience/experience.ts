@@ -17,13 +17,19 @@ import { CommonModule } from "@angular/common";
   standalone: true,
   imports: [CommonModule],
 })
-export class Experience implements OnInit, AfterViewInit {
+export class Experience implements AfterViewInit {
   @ViewChild("experienceBg") experienceBgRef!: ElementRef;
   private _experienceData!: IData["experiences"];
 
   @Input({ required: true })
   set experienceData(value: IData["experiences"]) {
-    this._experienceData = value;
+    if (value) {
+      this._experienceData = [...value].sort((a, b) => {
+        const dateA = new Date(a.startDate).getTime();
+        const dateB = new Date(b.startDate).getTime();
+        return dateB - dateA;
+      });
+    }
   }
   get experienceData(): IData["experiences"] {
     return this._experienceData;
@@ -31,23 +37,19 @@ export class Experience implements OnInit, AfterViewInit {
 
   constructor(private animationService: AnimationService) {}
 
-  ngOnInit(): void {}
-
   ngAfterViewInit(): void {
-    // Initialize animations only if the experience data is available
     if (this.experienceData && this.experienceData.length > 0) {
       this.initializeAnimations();
     }
   }
 
   private initializeAnimations(): void {
-    // Initialize scroll animations
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("visible");
-            observer.unobserve(entry.target); // Stop observing once visible
+            observer.unobserve(entry.target);
           }
         });
       },
@@ -57,14 +59,11 @@ export class Experience implements OnInit, AfterViewInit {
       }
     );
 
-    // Wait for DOM to be ready
     setTimeout(() => {
-      // Observe all animated elements
       document.querySelectorAll(".animate-on-scroll").forEach((el) => {
         observer.observe(el);
       });
 
-      // Initialize background animation if element exists
       if (this.experienceBgRef?.nativeElement) {
         this.animationService.createExperienceCodeAnimation(
           this.experienceBgRef.nativeElement
