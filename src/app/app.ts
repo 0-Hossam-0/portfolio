@@ -1,5 +1,5 @@
-import { Component, type OnInit } from "@angular/core";
-import { NavigationEnd, Router, RouterOutlet } from "@angular/router";
+import { Component } from "@angular/core";
+import { RouterOutlet } from "@angular/router";
 import { Toast } from "./public components/toast/toast";
 import { CommonModule } from "@angular/common";
 import { Loading } from "./public components/loading/loading";
@@ -12,8 +12,4 @@ import { Error } from "./public components/error/error";
   imports: [RouterOutlet, Toast, Loading, CommonModule, Error],
   standalone: true,
 })
-export class App {
-  errorDetail: string | null = null;
-  constructor(private router: Router) {}
-
-}
+export class App {}
