@@ -161,3 +161,24 @@
 .delayed-2 {
   animation-delay: 0.4s;
 }
+
+@media (max-width: 640px) {
+  .orbit {
+    width: 150px;
+    height: 150px;
+  }
+
+  .center-sphere {
+    width: 45px;
+    height: 45px;
+  }
+
+  .satellite {
+    width: 10px;
+    height: 10px;
+  }
+
+  .progress-container {
+    width: 240px;
+  }
+}

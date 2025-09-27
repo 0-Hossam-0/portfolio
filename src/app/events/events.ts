@@ -7,6 +7,6 @@ export const loadingStatus$ = new BehaviorSubject<{
   isLoading: boolean;
   status: "success" | "error" | "pending";
 }>({
-  isLoading: true,
+  isLoading: false,
   status: "error",
 });
