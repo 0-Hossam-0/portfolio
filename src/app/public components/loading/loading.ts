@@ -12,31 +12,31 @@ import { isFirstLoad$, loadingStatus$ } from "../../events/events";
 })
 export class Loading implements OnInit, OnDestroy {
   constructor(private dataService: DataService) {}
-  isLoading: boolean = true;
+  isLoading: boolean = false;
   progress = 0;
   isFirstLoad: boolean = true;
   private progressInterval: any;
 
   ngOnInit() {
-    // loadingStatus$.subscribe((loadingStatus) => {
-    //   if (loadingStatus.isLoading && loadingStatus.status === "pending") this.isLoading = true;
-    //   else this.isLoading = false;
-    //   let fakeInterval = setInterval(() => {
-    //     if (this.progress < 90) {
-    //       this.progress += 5;
-    //     } else if (
-    //       loadingStatus$.getValue().status === "success" &&
-    //       this.progress === 90
-    //     ) {
-    //       this.progress = 100;
-    //       setTimeout(() => {
-    //         this.progress = 0;
-    //         clearInterval(fakeInterval);
-    //       }, 300);
-    //       this.progress = 0;
-    //     }
-    //   }, 100);
-    // });
+    loadingStatus$.subscribe((loadingStatus) => {
+      if (loadingStatus.isLoading && loadingStatus.status === "pending") this.isLoading = true;
+      else this.isLoading = false;
+      let fakeInterval = setInterval(() => {
+        if (this.progress < 90) {
+          this.progress += 5;
+        } else if (
+          loadingStatus$.getValue().status === "success" &&
+          this.progress === 90
+        ) {
+          this.progress = 100;
+          setTimeout(() => {
+            this.progress = 0;
+            clearInterval(fakeInterval);
+          }, 300);
+          this.progress = 0;
+        }
+      }, 100);
+    });
     isFirstLoad$.subscribe((value) => {
       this.isFirstLoad = value;
     });
