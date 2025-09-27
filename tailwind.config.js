@@ -1,9 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./src/**/*.{html,ts}",
-    "./index.html",
-  ],
+  mode: "jit",
+content: [
+  "./src/**/*.{html,ts,css,scss,sass,less,js,jsx,tsx}",
+  "./index.html",
+],
+
   darkMode: "class",
   theme: {
     extend: {
@@ -30,6 +32,7 @@ module.exports = {
         "dark-light-blue": "#60a5fa",
       },
       animation: {
+
         "fade-in": "fadeIn 0.6s ease-out",
         "slide-up": "slideUp 0.8s ease-out",
         "slide-in-left": "slideInLeft 0.8s ease-out",
@@ -41,8 +44,13 @@ module.exports = {
         "section-fade-in": "sectionFadeIn 0.6s ease-out forwards",
         "bounce-in": "bounceIn 0.8s ease-out",
         "rotate-in": "rotateIn 0.8s ease-out",
+        'sat-orbit': 'sat-orbit 6s linear infinite reverse',
       },
       keyframes: {
+         'sat-orbit': {
+          '0%': { transform: 'rotate(0deg) translateX(100px) rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg) translateX(100px) rotate(-360deg)' },
+        },
         fadeIn: {
           "0%": { opacity: "0" },
           "100%": { opacity: "1" },
