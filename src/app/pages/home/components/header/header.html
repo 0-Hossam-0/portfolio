@@ -6,7 +6,6 @@
   <header class="header-fixed header-bg transition-all duration-300">
     <div class="container mx-auto px-4 sm:px-6 h-full flex items-center">
       <div class="flex items-center justify-between w-full">
-        <!-- Logo and Brand -->
         <div class="flex items-center space-x-2 sm:space-x-3">
           <button
             (click)="navigateToSection($event, 'home')"
@@ -18,9 +17,7 @@
               class="w-6 h-6 text-white transition-transform duration-300 group-hover:scale-110"
             ></lucide-icon>
           </button>
-          <!-- <span class="text-lg sm:text-2xl font-bold text-gradient">Home</span> -->
         </div>
-        <!-- Desktop Navigation -->
         <nav class="hidden md:block pointer-events-none">
           <ul class="flex space-x-1 sm:space-x-2 pointer-events-auto">
             <li>
@@ -86,7 +83,6 @@
           </ul>
         </nav>
 
-        <!-- Desktop Profile and Actions -->
         <div class="z-10 hidden md:flex items-center space-x-4 sm:space-x-6">
           <div
             class="theme-toggle cursor-pointer p-2 rounded-full hover:bg-accent-blue/10"
@@ -138,7 +134,7 @@
             <a
               [href]="headerData.contactData.github"
               target="_blank"
-              class="w-8 h-8 bg-accent-blue/20 dark:bg-dark-accent-blue/20 rounded-full flex items-center justify-center hover:bg-accent-blue dark:hover:bg-dark-accent-blue hover:scale-110 transition-all duration-200"
+              class="w-8 h-8 bg-accent-blue/20 dark:bg-dark-accent-blue/20 rounded-full flex items-center justify-center hover:bg-accent-blue dark:hover:bg-dark-accent-blue/40 hover:scale-110 transition-all duration-200"
             >
               <span
                 class="text-xs text-accent-blue dark:text-dark-accent-blue hover:text-white"
@@ -149,7 +145,7 @@
             <a
               [href]="headerData.contactData.linkedin"
               target="_blank"
-              class="w-8 h-8 bg-accent-blue/20 dark:bg-dark-accent-blue/20 rounded-full flex items-center justify-center hover:bg-accent-blue dark:hover:bg-dark-accent-blue hover:scale-110 transition-all duration-200"
+              class="w-8 h-8 bg-accent-blue/20 dark:bg-dark-accent-blue/20 rounded-full flex items-center justify-center hover:bg-accent-blue dark:hover:bg-dark-accent-blue/40 hover:scale-110 transition-all duration-200"
             >
               <span
                 class="text-xs text-accent-blue dark:text-dark-accent-blue hover:text-white"
@@ -160,7 +156,6 @@
           </div>
         </div>
 
-        <!-- Mobile Actions -->
         <div class="flex items-center space-x-2 sm:space-x-3 md:hidden z-50">
           <div
             class="theme-toggle cursor-pointer p-2 rounded-full hover:bg-accent-blue/10"
@@ -219,7 +214,6 @@
       </div>
     </div>
 
-    <!-- Mobile Menu -->
     <div
       class="fixed inset-x-0 top-[64px] sm:top-[80px] bg-white dark:bg-gray-900 border-b border-border-color transform transition-all duration-300 ease-in-out shadow-lg"
       [class.translate-y-0]="mobileMenuOpen"
@@ -231,7 +225,6 @@
       <nav
         class="container mx-auto divide-y divide-gray-100 dark:divide-gray-800"
       >
-        <!-- Mobile Profile Section -->
         <div class="p-4 flex items-center space-x-4" *ngIf="headerData">
           <img
             [src]="headerData.personalData.image"
@@ -250,7 +243,6 @@
           </div>
         </div>
 
-        <!-- Navigation Links -->
         <ul class="py-2">
           <li>
             <a

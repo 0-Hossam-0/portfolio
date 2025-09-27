@@ -22,11 +22,12 @@
         class="group relative overflow-hidden rounded-xl sm:rounded-2xl bg-card-bg border border-border-color shadow-lg animate-on-scroll delay-1 cursor-pointer hover:shadow-xl transition-all duration-300"
         (click)="onProjectClick(project)"
       >
-        <div class="aspect-video overflow-hidden">
+        <div class="relative w-full" style="padding-top: 56.25%">
+          <!-- 16:9 -->
           <img
             [src]="project.images[0]"
-            alt="project.title"
-            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+            [alt]="project.title"
+            class="absolute inset-0 w-full h-full object-cover"
           />
         </div>
         <div class="p-4 sm:p-8">
